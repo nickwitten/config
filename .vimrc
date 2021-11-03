@@ -8,3 +8,7 @@ set shiftwidth=4
 set expandtab
 " Ignore case in search
 set ignorecase
+" Set vim swap, undo, and backup directory
+set backupdir=~/.vim/backup//
+set undodir=~/.vim/undo//
+set directory=~/.vim/swap//
