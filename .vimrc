@@ -12,3 +12,6 @@ set ignorecase
 set backupdir=~/.vim/backup//
 set undodir=~/.vim/undo//
 set directory=~/.vim/swap//
+" Set tab switch to H and L
+nnoremap H gT
+nnoremap L gt
