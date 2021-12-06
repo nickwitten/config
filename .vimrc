@@ -12,6 +12,14 @@ set ignorecase
 set backupdir=~/.vim/backup//
 set undodir=~/.vim/undo//
 set directory=~/.vim/swap//
-" Set tab switch to H and L
+" Set tab switch and move to H and L
 nnoremap H gT
 nnoremap L gt
+nnoremap <c-h> :tabm -1<enter>
+nnoremap <c-l> :tabm +1<enter>
+" Switch to current files directory
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" Paste register 0
+nnoremap P "0p
+" Cut to register 0
+nnoremap X "0x
