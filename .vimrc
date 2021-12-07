@@ -23,3 +23,4 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap P "0p
 " Cut to register 0
 nnoremap X "0x
+xnoremap X "0x
