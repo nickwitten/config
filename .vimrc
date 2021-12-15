@@ -17,6 +17,8 @@ nnoremap H gT
 nnoremap L gt
 nnoremap <c-h> :tabm -1<enter>
 nnoremap <c-l> :tabm +1<enter>
+" Create a tab with <c-n>
+nnoremap <c-n> :tabnew <enter>
 " Switch to current files directory
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Paste register 0
