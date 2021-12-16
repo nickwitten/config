@@ -1,4 +1,3 @@
-colorscheme desert
 filetype plugin indent on
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -26,3 +25,18 @@ nnoremap P "0p
 " Cut to register 0
 nnoremap X "0x
 xnoremap X "0x
+
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+Plug 'morhetz/gruvbox'
+
+" Initialize plugin system
+call plug#end()
+" PlugInstall to install packages
+
+" Gruvbox
+set termguicolors
+autocmd vimenter * ++nested colorscheme gruvbox
