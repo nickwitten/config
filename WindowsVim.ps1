@@ -7,4 +7,4 @@ iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
 
 copy ~/config/_vimrc ~
 
-git clone https://github.com/morhetz/gruvbox.git "~\vimfiles\pack\default\start\gruvbox"
+# git clone https://github.com/morhetz/gruvbox.git "~\vimfiles\pack\default\start\gruvbox"
