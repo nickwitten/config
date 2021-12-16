@@ -84,6 +84,10 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-sensible'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
 
 " Initialize plugin system
 call plug#end()
@@ -92,3 +96,10 @@ call plug#end()
 " Gruvbox
 set termguicolors
 autocmd vimenter * ++nested colorscheme gruvbox
+
+" Nerdtree
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * silent NERDTreeMirror
+" Start NERDTree when Vim is opened and leave the cursor in it.
+autocmd VimEnter * NERDTree
+
