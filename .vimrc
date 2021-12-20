@@ -26,12 +26,19 @@ nnoremap P "0p
 nnoremap X "0x
 xnoremap X "0x
 
+
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-sensible'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
+Plug 'simeji/winresizer'
+Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
 call plug#end()
@@ -40,3 +47,18 @@ call plug#end()
 " Gruvbox
 set termguicolors
 autocmd vimenter * ++nested colorscheme gruvbox
+
+" Nerdtree
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * silent NERDTreeMirror
+" Start NERDTree when Vim is opened and leave the cursor in it.
+autocmd VimEnter * NERDTree
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
