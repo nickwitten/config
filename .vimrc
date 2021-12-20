@@ -47,6 +47,7 @@ call plug#end()
 " Gruvbox
 set termguicolors
 autocmd vimenter * ++nested colorscheme gruvbox
+set background=dark
 
 " Nerdtree
 " Open the existing NERDTree on each new tab.
