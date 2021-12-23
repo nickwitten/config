@@ -17,10 +17,10 @@ set directory=~/.vim/swap//
 " Set tab switch and move to H and L
 nnoremap H gT
 nnoremap L gt
-nnoremap <c-h> :tabm -1<enter>
-nnoremap <c-l> :tabm +1<enter>
+nnoremap <c-h> :tabm -1<CR>
+nnoremap <c-l> :tabm +1<CR>
 " Create a tab with <c-n>
-nnoremap <c-n> :tabnew <enter>
+nnoremap <c-n> :tabnew <CR>
 " Switch to current files directory
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Paste register 0
@@ -28,14 +28,29 @@ nnoremap P "0p
 " Cut to register 0
 nnoremap X "0x
 xnoremap X "0x
+" Open the current window in a new tab
+nnoremap <c-w>z :tab sp <CR>
 
-function SaveSessionQuit()
+
+" Session mappings
+function SaveSession()
+    let curr_tab = tabpagenr()
     tabdo NERDTreeClose
     mks! ./.session.vim
-    qa
+    execute "tabn ".curr_tab
+    NERDTree
+    let tab = 1
+    while tab <= tabpagenr("$")
+        if tab != curr_tab
+            execute "tabn ".tab
+            NERDTreeMirror
+        endif
+        let tab += 1
+    endwhile
+    execute "tabn ".curr_tab
 endfunction
-command SaveSessionQuit call SaveSessionQuit()
-nnoremap <leader>s :SaveSessionQuit <enter>
+command SaveSession call SaveSession()
+nnoremap <leader>s :SaveSession <CR>
 
 function LoadSession()
     if filereadable(".session.vim")
@@ -51,7 +66,15 @@ function LoadSession()
     endif
 endfunction
 command LoadSession call LoadSession()
-nnoremap <leader>l :LoadSession <enter>
+nnoremap <leader>l :LoadSession <CR>
+
+" When leaving tab focus on second window
+function FocusWindow2()
+    if (winnr('$') > 1 && winnr() == 1)
+        2 wincmd w
+    endif
+endfunction
+autocmd TabLeave * call FocusWindow2()
 
 
 " Specify a directory for plugins
