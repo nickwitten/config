@@ -8,8 +8,11 @@ set expandtab
 " Ignore case in search
 set ignorecase
 " Set vim swap, undo, and backup directory
+silent call mkdir ($HOME.'/.vim/backup', 'p')
 set backupdir=~/.vim/backup//
+silent call mkdir ($HOME.'/.vim/undo', 'p')
 set undodir=~/.vim/undo//
+silent call mkdir ($HOME.'/.vim/swap', 'p')
 set directory=~/.vim/swap//
 " Set tab switch and move to H and L
 nnoremap H gT
@@ -25,6 +28,30 @@ nnoremap P "0p
 " Cut to register 0
 nnoremap X "0x
 xnoremap X "0x
+
+function SaveSessionQuit()
+    tabdo NERDTreeClose
+    mks! ./.session.vim
+    qa
+endfunction
+command SaveSessionQuit call SaveSessionQuit()
+nnoremap <leader>s :SaveSessionQuit <enter>
+
+function LoadSession()
+    if filereadable(".session.vim")
+        tabdo NERDTreeClose
+        source ./.session.vim
+        tabn 1
+        NERDTree
+        if (tabpagenr('$') != 1)
+            NERDTreeClose
+        endif
+    else
+        echo "No session saved"
+    endif
+endfunction
+command LoadSession call LoadSession()
+nnoremap <leader>l :LoadSession <enter>
 
 
 " Specify a directory for plugins
