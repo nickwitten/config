@@ -20,7 +20,8 @@ set directory=~/.vim/swap//
 " Scroll with and without cursor
 nnoremap <c-j> j<c-e>
 nnoremap <c-k> k<c-y>
-" unmap <c-y>
+"silent! unmap <C-E>
+"silent! unmap <C-Y>
 " Set tab switch and move to H and L
 nnoremap H gT
 nnoremap L gt
@@ -160,6 +161,7 @@ endfunction
 call NT()
 
 "Winresizer
+let g:winresizer_start_key = '<leader>w :WinResizerStartResize<CR>'
 nnoremap <leader>w :WinResizerStartResize<CR>
 
 " Syntastic

@@ -39,6 +39,7 @@ Copy-Item ~/config/_vimrc ~/_vimrc -Force | Out-Null
 New-Item -ItemType File -Path $profile -Force | Out-Null
 echo "~/config/profile.ps1" > $profile
 
+
 ### Windows Terminal ###############
 Copy-Item ~\config\windowsterm.json ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
 
