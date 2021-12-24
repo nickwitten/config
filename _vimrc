@@ -1,4 +1,6 @@
-source ~/.vimrc
+source ~/config/.vimrc
+set shell=powershell
+set shellcmdflag=-command
 
 
 " Vim with all enhancements

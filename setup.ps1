@@ -33,10 +33,9 @@ if (-Not (Test-Path -Path $vimplugpath)) {
     echo "Installed Vim-Plug"
 }
 Copy-Item ~/config/_vimrc ~/_vimrc -Force | Out-Null
-Copy-Item ~/config/.vimrc ~/.vimrc -Force | Out-Null
 
 
 #### PowerShell Configuration ######
 New-Item -ItemType File -Path $profile -Force | Out-Null
-Copy-Item ~/config/profile.ps1 $profile -Force | Out-Null
+echo "~/config/profile.ps1" > $profile
 

@@ -1,3 +1,6 @@
+" Source vimrc
+map <leader>rc :tabdo source $MYVIMRC<CR>
+" Indent based on filetype
 filetype plugin indent on
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -14,13 +17,17 @@ silent call mkdir ($HOME.'/.vim/undo', 'p')
 set undodir=~/.vim/undo//
 silent call mkdir ($HOME.'/.vim/swap', 'p')
 set directory=~/.vim/swap//
+" Scroll with and without cursor
+nnoremap <c-j> j<c-e>
+nnoremap <c-k> k<c-y>
+unmap <c-y>
 " Set tab switch and move to H and L
 nnoremap H gT
 nnoremap L gt
 nnoremap <c-h> :tabm -1<CR>
 nnoremap <c-l> :tabm +1<CR>
 " Create a tab with <c-n>
-nnoremap <c-n> :tabnew <CR>
+nnoremap <c-n> :tabnew<CR>
 " Switch to current files directory
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Paste register 0
@@ -29,7 +36,11 @@ nnoremap P "0p
 nnoremap X "0x
 xnoremap X "0x
 " Open the current window in a new tab
-nnoremap <c-w>z :tab sp <CR>
+nnoremap <c-w>z :tab sp<CR>
+" Close the current window force
+nnoremap <c-w>! :q!<CR>
+" Chow current file path
+nnoremap <leader>p 1<c-g>
 
 
 " Session mappings
@@ -76,6 +87,34 @@ function FocusWindow2()
 endfunction
 autocmd TabLeave * call FocusWindow2()
 
+" Search mappings
+function! s:ShowMaps()
+    let old_reg = getreg("a")          " save the current content of register a
+    let old_reg_type = getregtype("a") " save the type of the register as well
+    try
+        redir @a                           " redirect output to register a
+        " Get the list of all key mappings silently, satisfy "Press ENTER to continue"
+        silent map | call feedkeys("\<CR>")    
+        redir END                          " end output redirection
+        vnew                               " new buffer in vertical window
+        put a                              " put content of register
+        " Sort on 4th character column which is the key(s)
+        " This is linux specific (powershell would be sort {$_[3]} )
+        " %!sort -k1.4,1.4
+    finally                              " Execute even if exception is raised
+    call setreg("a", old_reg, old_reg_type) " restore register a
+    endtry
+endfunction
+com! ShowMaps call s:ShowMaps()      " Enable :ShowMaps to call the function
+nnoremap <leader>m :ShowMaps<CR>            " Map keys to call the function
+
+function! RC()
+    tabnew
+    e $MYVIMRC
+    vnew ~/config/.vimrc
+endfunction
+com! RC call RC()
+
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -107,6 +146,8 @@ autocmd VimEnter * NERDTree
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
+"Winresizer
+nnoremap <leader>w :WinResizerStartResize<CR>
 
 " Syntastic
 set statusline+=%#warningmsg#
