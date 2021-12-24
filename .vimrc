@@ -1,5 +1,5 @@
 " Source vimrc
-map <leader>rc :tabdo source $MYVIMRC<CR>
+map <leader>rc :source $MYVIMRC<CR>
 " Indent based on filetype
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -20,7 +20,7 @@ set directory=~/.vim/swap//
 " Scroll with and without cursor
 nnoremap <c-j> j<c-e>
 nnoremap <c-k> k<c-y>
-unmap <c-y>
+" unmap <c-y>
 " Set tab switch and move to H and L
 nnoremap H gT
 nnoremap L gt
@@ -39,12 +39,15 @@ xnoremap X "0x
 nnoremap <c-w>z :tab sp<CR>
 " Close the current window force
 nnoremap <c-w>! :q!<CR>
-" Chow current file path
+" Show current file path
 nnoremap <leader>p 1<c-g>
 
 
 " Session mappings
-function SaveSession()
+function! SaveSession()
+    if filereadable(".session.vim")
+        call input('Overwrite Session?')
+    endif
     let curr_tab = tabpagenr()
     tabdo NERDTreeClose
     mks! ./.session.vim
@@ -60,27 +63,32 @@ function SaveSession()
     endwhile
     execute "tabn ".curr_tab
 endfunction
-command SaveSession call SaveSession()
+command! SaveSession call SaveSession()
 nnoremap <leader>s :SaveSession <CR>
 
-function LoadSession()
+function! LoadSession()
     if filereadable(".session.vim")
-        tabdo NERDTreeClose
+        :autocmd! NTGroup
         source ./.session.vim
         tabn 1
         NERDTree
-        if (tabpagenr('$') != 1)
-            NERDTreeClose
-        endif
+        let tabs_ct = tabpagenr("$")
+        let tab = 2
+        while tab <= tabs_ct
+            execute "tabn ".tab
+            NERDTreeMirror
+            let tab += 1
+        endwhile
+        call NT()
     else
         echo "No session saved"
     endif
 endfunction
-command LoadSession call LoadSession()
+command! LoadSession call LoadSession()
 nnoremap <leader>l :LoadSession <CR>
 
 " When leaving tab focus on second window
-function FocusWindow2()
+function! FocusWindow2()
     if (winnr('$') > 1 && winnr() == 1)
         2 wincmd w
     endif
@@ -127,7 +135,7 @@ Plug 'tpope/vim-sensible'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'simeji/winresizer'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
 call plug#end()
@@ -139,21 +147,27 @@ autocmd vimenter * ++nested colorscheme gruvbox
 set background=dark
 
 " Nerdtree
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * silent NERDTreeMirror
-" Start NERDTree when Vim is opened and leave the cursor in it.
-autocmd VimEnter * NERDTree
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+function! NT()
+    augroup NTGroup
+    " Open the existing NERDTree on each new tab.
+    autocmd BufWinEnter * silent NERDTreeMirror
+    " Start NERDTree when Vim is opened and leave the cursor in it.
+    autocmd VimEnter * NERDTree
+    " Close the tab if NERDTree is the only window remaining in it.
+    autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+    augroup END
+endfunction
+call NT()
 
 "Winresizer
 nnoremap <leader>w :WinResizerStartResize<CR>
 
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+
