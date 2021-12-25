@@ -98,31 +98,46 @@ autocmd TabLeave * call FocusWindow2()
 
 " Search mappings
 function! s:ShowMaps()
-    let old_reg = getreg("a")          " save the current content of register a
-    let old_reg_type = getregtype("a") " save the type of the register as well
+    " save the current content of register a
+    let old_reg = getreg("a")
+    " save the type of the register as well
+    let old_reg_type = getregtype("a")
     try
-        redir @a                           " redirect output to register a
+        " redirect output to register a
+        redir @a                         
         " Get the list of all key mappings silently, satisfy "Press ENTER to continue"
         silent map | call feedkeys("\<CR>")    
-        redir END                          " end output redirection
-        vnew                               " new buffer in vertical window
-        put a                              " put content of register
+        " end output redirection
+        redir END                         
+        " new buffer in vertical window
+        vnew                             
+        " put content of register
+        put a                             
         " Sort on 4th character column which is the key(s)
         " This is linux specific (powershell would be sort {$_[3]} )
         " %!sort -k1.4,1.4
-    finally                              " Execute even if exception is raised
-    call setreg("a", old_reg, old_reg_type) " restore register a
+    " Execute even if exception is raised
+    finally                             
+    " restore register a
+    call setreg("a", old_reg, old_reg_type)
     endtry
 endfunction
-com! ShowMaps call s:ShowMaps()      " Enable :ShowMaps to call the function
-nnoremap <leader>m :ShowMaps<CR>            " Map keys to call the function
+" Enable :ShowMaps to call the function
+com! ShowMaps call s:ShowMaps()     
+" Map keys to call the function
+nnoremap <leader>m :ShowMaps<CR>           
 
 function! RC()
     tabnew
-    e $MYVIMRC
+    e $MYVIMRC:
     vnew ~/config/.vimrc
 endfunction
 com! RC call RC()
+
+function! Swaps()
+    execute "vnew " . &directory
+endfunction
+com! Swaps call Swaps()
 
 
 " Specify a directory for plugins
