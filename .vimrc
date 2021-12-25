@@ -82,7 +82,7 @@ function! LoadSession()
         endwhile
         call NT()
     else
-        echo "No session saved"
+        echo "No session saved"`
     endif
 endfunction
 command! LoadSession call LoadSession()
@@ -152,7 +152,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'simeji/winresizer'
 Plug 'davidhalter/jedi-vim'
-" Plug 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
 call plug#end()
@@ -181,11 +181,23 @@ let g:winresizer_start_key = '<leader>w :WinResizerStartResize<CR>'
 nnoremap <leader>w :WinResizerStartResize<CR>
 
 " Syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
+" Jedi-Vim
+let g:jedi#goto_stubs_command = "<F1>"
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_call_signatures = 2  " in cmdline
+let g:jedi#force_py_version = 3.8
+let g:jedi#use_splits_not_buffers = "winwidth"
+let g:jedi#smart_auto_mappings = 1
+if len(globpath('.', 'venv', 1, 1)) > 0
+    let g:jedi#environment_path = "venv"
+else
+    let g:jedi#environment_path = ""
+endif

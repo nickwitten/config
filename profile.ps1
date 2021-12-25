@@ -14,7 +14,7 @@ function ReloadPath {
 
 ########## PYTHON ###################
 $PythonInstallPath = "$env:LOCALAPPDATA\Programs\Python"
-$DefaultPythonVersionNoDot = "38"
+$DefaultPythonVersionNoDot = "310"
 function AddPythonToPath {
     $env:Path = "$PythonInstallPath\Python$DefaultPythonVersionNoDot\Scripts;$env:Path"
     $env:Path = "$PythonInstallPath\Python$DefaultPythonVersionNoDot;$env:Path"
