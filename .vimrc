@@ -151,6 +151,7 @@ Plug 'tpope/vim-sensible'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'simeji/winresizer'
+Plug 'davidhalter/jedi-vim'
 " Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
