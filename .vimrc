@@ -1,3 +1,4 @@
+set mouse=a
 " Source vimrc
 map <leader>rc :source $MYVIMRC<CR>
 " Indent based on filetype
@@ -132,6 +133,25 @@ function! Run()
 endfunction
 nnoremap <leader>y :call Run()<CR><CR>
 com! -nargs=1 Run let g:RunCMD = <f-args> | echo "LEADER-Y to Run"
+
+function! MoveBuff(direction)
+    let buffn = bufnr("%")
+    close!
+    if a:direction == "r"
+        silent! tabn +1
+    else
+        if a:direction == "l"
+            silent! tabn -1
+        else
+            echo "Specify Direction"
+            return
+        endif
+    endif
+    execute "sbuff " . buffn
+endfunction
+com! -nargs=1 MoveBuff call MoveBuff(<f-args>)
+nnoremap <leader><c-l> :MoveBuff r<CR>
+nnoremap <leader><c-h> :MoveBuff l<CR>
 
 
 " Specify a directory for plugins
