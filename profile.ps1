@@ -46,7 +46,15 @@ function InstallPython {
     Invoke-Expression "python$PythonVersionNoDot -m ensurepip --upgrade"
 
     AddPythonToPath
-    echo "Add to path: "
+    echo "Added to path: "
     echo "$InstallDir"
     echo "$InstallDir\Scripts"
 }
+
+function searchVENV {
+    Get-ChildItem | Where-Object { $_.name -like "venv" } | ForEach-Object {
+        echo "Found a virtual environment"
+        .\venv\Scripts\activate
+    }
+}
+searchVENV

@@ -1,28 +1,26 @@
 set mouse=a
-" Source vimrc
-map <leader>rc :source $MYVIMRC<CR>
-" Indent based on filetype
+set hidden
 filetype plugin indent on
-" show existing tab with 4 spaces width
 set tabstop=4
-" when indenting with '>', use 4 spaces width
 set shiftwidth=4
-" On pressing tab, insert 4 spaces
+set shiftround
+set smarttab
 set expandtab
-" Ignore case in search
 set ignorecase
-" Set vim swap, undo, and backup directory
+set smartcase
+set number
+set noerrorbells
 silent call mkdir ($HOME.'/.vim/backup', 'p')
 set backupdir=~/.vim/backup//
 silent call mkdir ($HOME.'/.vim/undo', 'p')
 set undodir=~/.vim/undo//
 silent call mkdir ($HOME.'/.vim/swap', 'p')
 set directory=~/.vim/swap//
+let mapleader = " "
+map <leader>rc :source $MYVIMRC<CR>
 " Scroll with and without cursor
 nnoremap <c-j> j<c-e>
 nnoremap <c-k> k<c-y>
-"silent! unmap <C-E>
-"silent! unmap <C-Y>
 " Set tab switch and move to H and L
 nnoremap H gT
 nnoremap L gt
@@ -49,6 +47,14 @@ nnoremap <leader>t :term<CR>
 nnoremap <leader>T :tab term<CR>
 tnoremap <c-w>[ <c-w>N
 tnoremap <c-w>c <c-w>N
+" Search
+nnoremap * *N
+nnoremap # :noh<CR>
+" Folds
+set foldmethod=indent
+nnoremap <leader>f za
+nnoremap <leader>fa zM
+nnoremap <leader>uf zR
 
 
 

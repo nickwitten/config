@@ -61,7 +61,7 @@ Copy-Item ~/config/_vimrc ~/_vimrc -Force | Out-Null
 
 ######## PowerShell ################
 New-Item -ItemType File -Path $profile -Force | Out-Null
-echo ". ~/config/profile.ps1" > $profile
+echo ". $HOME\config\profile.ps1" > $profile
 
 
 ###### Windows Terminal ############

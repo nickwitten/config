@@ -1,13 +1,14 @@
 source ~/config/.vimrc
 set shell=powershell
 set shellcmdflag=-command
+set guifont=Consolas:h9:cANSI
 
 
 " Vim with all enhancements
 source $VIMRUNTIME/vimrc_example.vim
 
 " Remap a few keys for Windows behavior
-source $VIMRUNTIME/mswin.vim
+" source $VIMRUNTIME/mswin.vim
 
 " Mouse behavior (the Windows way)
 behave mswin
@@ -17,7 +18,7 @@ behave mswin
 if &diffopt !~# 'internal'
   set diffexpr=MyDiff()
 endif
-function MyDiff()
+function! MyDiff()
   let opt = '-a --binary '
   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
   if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
