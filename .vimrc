@@ -39,9 +39,16 @@ xnoremap X "0x
 " Open the current window in a new tab
 nnoremap <c-w>z :tab sp<CR>
 " Close the current window force
+nnoremap <c-w>C :q!<CR>
 nnoremap <c-w>! :q!<CR>
 " Show current file path
 nnoremap <leader>p 1<c-g>
+" Terminal mappings
+nnoremap <leader>t :term<CR>
+nnoremap <leader>T :tab term<CR>
+tnoremap <c-w>[ <c-w>N
+tnoremap <c-w>c <c-w>N
+
 
 
 " Session mappings
@@ -66,6 +73,7 @@ function! SaveSession()
 endfunction
 command! SaveSession call SaveSession()
 nnoremap <leader>s :SaveSession <CR>
+set sessionoptions+=globals
 
 function! LoadSession()
     if filereadable(".session.vim")
@@ -80,9 +88,10 @@ function! LoadSession()
             NERDTreeMirror
             let tab += 1
         endwhile
+        tabn 1
         call NT()
     else
-        echo "No session saved"`
+        echo "No session saved"
     endif
 endfunction
 command! LoadSession call LoadSession()
@@ -96,40 +105,10 @@ function! FocusWindow2()
 endfunction
 autocmd TabLeave * call FocusWindow2()
 
-" Search mappings
-function! s:ShowMaps()
-    " save the current content of register a
-    let old_reg = getreg("a")
-    " save the type of the register as well
-    let old_reg_type = getregtype("a")
-    try
-        " redirect output to register a
-        redir @a                         
-        " Get the list of all key mappings silently, satisfy "Press ENTER to continue"
-        silent map | call feedkeys("\<CR>")    
-        " end output redirection
-        redir END                         
-        " new buffer in vertical window
-        vnew                             
-        " put content of register
-        put a                             
-        " Sort on 4th character column which is the key(s)
-        " This is linux specific (powershell would be sort {$_[3]} )
-        " %!sort -k1.4,1.4
-    " Execute even if exception is raised
-    finally                             
-    " restore register a
-    call setreg("a", old_reg, old_reg_type)
-    endtry
-endfunction
-" Enable :ShowMaps to call the function
-com! ShowMaps call s:ShowMaps()     
-" Map keys to call the function
-nnoremap <leader>m :ShowMaps<CR>           
 
 function! RC()
     tabnew
-    e $MYVIMRC:
+    e $MYVIMRC
     vnew ~/config/.vimrc
 endfunction
 com! RC call RC()
@@ -138,6 +117,21 @@ function! Swaps()
     execute "vnew " . &directory
 endfunction
 com! Swaps call Swaps()
+
+
+function! Redir(cmd)
+    tabnew
+    redir @">| silent execute(a:cmd) | put "
+endfunction
+com! -nargs=1 Redir call Redir(<f-args>)
+
+
+function! Run()
+    term
+    call term_sendkeys("", g:RunCMD)
+endfunction
+nnoremap <leader>y :call Run()<CR><CR>
+com! -nargs=1 Run let g:RunCMD = <f-args> | echo "LEADER-Y to Run"
 
 
 " Specify a directory for plugins
@@ -175,6 +169,7 @@ function! NT()
     augroup END
 endfunction
 call NT()
+let NERDTreeShowBookmarks = 1
 
 "Winresizer
 let g:winresizer_start_key = '<leader>w :WinResizerStartResize<CR>'
