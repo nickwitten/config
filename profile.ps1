@@ -53,7 +53,6 @@ function InstallPython {
 
 function searchVENV {
     Get-ChildItem | Where-Object { $_.name -like "venv" } | ForEach-Object {
-        echo "Found a virtual environment"
         .\venv\Scripts\activate
     }
 }

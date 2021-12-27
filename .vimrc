@@ -56,6 +56,8 @@ nnoremap <leader>f za
 nnoremap <leader>fa zM
 nnoremap <leader>uf zR
 
+nnoremap <leader>! :redraw!<CR>
+
 
 
 " Session mappings
