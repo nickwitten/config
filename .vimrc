@@ -186,6 +186,7 @@ autocmd vimenter * ++nested colorscheme gruvbox
 set background=dark
 set cursorline
 autocmd! ColorScheme * hi clear CursorLine | hi Search cterm=NONE guifg=Purple guibg=NONE | hi IncSearch cterm=NONE guifg=Purple guibg=NONE | hi Visual cterm=NONE guifg=Purple guibg=NONE
+" :hi Search term=standout ctermfg=245 ctermbg=237 guifg=Purple guibg=#3c3836
 
 " NERDTree
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
