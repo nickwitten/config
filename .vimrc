@@ -10,12 +10,20 @@ set ignorecase
 set smartcase
 set number
 set noerrorbells
+set ruler
+set list
+set listchars=tab:►\ ,trail:•
+set scrolloff=8
+"set clipboard^=unnamed,unnamedplus
+
+"set clipboard=unnamed
 silent call mkdir ($HOME.'/.vim/backup', 'p')
 set backupdir=~/.vim/backup//
 silent call mkdir ($HOME.'/.vim/undo', 'p')
 set undodir=~/.vim/undo//
 silent call mkdir ($HOME.'/.vim/swap', 'p')
 set directory=~/.vim/swap//
+
 let mapleader = " "
 map <leader>rc :source $MYVIMRC<CR>
 " Scroll with and without cursor
@@ -41,7 +49,7 @@ nnoremap <c-w>z :tab sp<CR>
 nnoremap <c-w>C :q!<CR>
 nnoremap <c-w>! :q!<CR>
 " Show current file path
-nnoremap <leader>p 1<c-g>
+nnoremap <leader>p :echo @%<CR>
 " Terminal mappings
 nnoremap <leader>t :term<CR>
 nnoremap <leader>T :tab term<CR>
@@ -49,14 +57,28 @@ tnoremap <c-w>[ <c-w>N
 tnoremap <c-w>c <c-w>N
 " Search
 nnoremap * *N
+vnoremap * "ay :exe 'Search '.@a<CR> NN
+vnoremap c* "ay :exe 'Search '.@a<CR> NN cgn
 nnoremap # :noh<CR>
+nnoremap c* *N cgn
+com! -nargs=1 Search :let @/='\V'.escape(<q-args>, '\/')| normal! n
 " Folds
 set foldmethod=indent
 nnoremap <leader>f za
-nnoremap <leader>fa zM
+nnoremap <leader>F zO
+nnoremap <leader>af zM
 nnoremap <leader>uf zR
 
 nnoremap <leader>! :redraw!<CR>
+
+vnoremap < <gv
+vnoremap > >gv
+
+map gf :edit <cfile><CR>
+
+" turn hybrid line numbers on
+set number relativenumber
+set nu rnu
 
 
 
@@ -69,16 +91,6 @@ function! SaveSession()
     tabdo NERDTreeClose
     mks! ./.session.vim
     execute "tabn ".curr_tab
-    NERDTree
-    let tab = 1
-    while tab <= tabpagenr("$")
-        if tab != curr_tab
-            execute "tabn ".tab
-            NERDTreeMirror
-        endif
-        let tab += 1
-    endwhile
-    execute "tabn ".curr_tab
 endfunction
 command! SaveSession call SaveSession()
 nnoremap <leader>s :SaveSession <CR>
@@ -86,19 +98,7 @@ set sessionoptions+=globals
 
 function! LoadSession()
     if filereadable(".session.vim")
-        :autocmd! NTGroup
         source ./.session.vim
-        tabn 1
-        NERDTree
-        let tabs_ct = tabpagenr("$")
-        let tab = 2
-        while tab <= tabs_ct
-            execute "tabn ".tab
-            NERDTreeMirror
-            let tab += 1
-        endwhile
-        tabn 1
-        call NT()
     else
         echo "No session saved"
     endif
@@ -184,20 +184,28 @@ call plug#end()
 set termguicolors
 autocmd vimenter * ++nested colorscheme gruvbox
 set background=dark
+set cursorline
+autocmd! ColorScheme * hi clear CursorLine | hi Search cterm=NONE guifg=Purple guibg=NONE | hi IncSearch cterm=NONE guifg=Purple guibg=NONE | hi Visual cterm=NONE guifg=Purple guibg=NONE
 
-" Nerdtree
-function! NT()
-    augroup NTGroup
-    " Open the existing NERDTree on each new tab.
-    autocmd BufWinEnter * silent NERDTreeMirror
-    " Start NERDTree when Vim is opened and leave the cursor in it.
-    autocmd VimEnter * NERDTree
-    " Close the tab if NERDTree is the only window remaining in it.
-    autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-    augroup END
-endfunction
-call NT()
+" NERDTree
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 let NERDTreeShowBookmarks = 1
+
+function! NERDTreeToggleFind()
+    if g:NERDTree.IsOpen()
+        NERDTreeClose
+    else
+        if @% == ''
+            NERDTree
+        else
+            NERDTreeFind
+        endif
+    endif
+endfunction
+com! NERDTreeToggleFind call NERDTreeToggleFind()
+nnoremap <leader>n :NERDTreeToggleFind<CR>
+nnoremap <leader>N :NERDTree<CR>
+
 
 "Winresizer
 let g:winresizer_start_key = '<leader>w :WinResizerStartResize<CR>'
@@ -215,7 +223,7 @@ let g:syntastic_check_on_wq = 0
 " Jedi-Vim
 let g:jedi#goto_stubs_command = "<F1>"
 let g:jedi#popup_on_dot = 0
-let g:jedi#show_call_signatures = 2  " in cmdline
+let g:jedi#show_call_signatures = 1  " in cmdline
 let g:jedi#force_py_version = 3.8
 let g:jedi#use_splits_not_buffers = "winwidth"
 let g:jedi#smart_auto_mappings = 1
@@ -224,3 +232,4 @@ if len(globpath('.', 'venv', 1, 1)) > 0
 else
     let g:jedi#environment_path = ""
 endif
+let g:jedi#usages_command = "<leader>u"

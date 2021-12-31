@@ -57,3 +57,8 @@ function searchVENV {
     }
 }
 searchVENV
+
+function GitLog {
+    git log --graph --pretty=format:'%Cred%h%Creset - %Cgreen(%ad)%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --abbrev-commit --date=local
+}
+
