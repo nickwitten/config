@@ -68,6 +68,8 @@ nnoremap <leader>f za
 nnoremap <leader>F zO
 nnoremap <leader>af zM
 nnoremap <leader>uf zR
+" Paste mode
+nnoremap <leader>v :set paste<CR>"*p:set nopaste<CR>
 
 nnoremap <leader>! :redraw!<CR>
 
@@ -224,7 +226,7 @@ let g:syntastic_check_on_wq = 0
 " Jedi-Vim
 let g:jedi#goto_stubs_command = "<F1>"
 let g:jedi#popup_on_dot = 0
-let g:jedi#show_call_signatures = 1  " in cmdline
+let g:jedi#show_call_signatures = 2  " in cmdline
 let g:jedi#force_py_version = 3.8
 let g:jedi#use_splits_not_buffers = "winwidth"
 let g:jedi#smart_auto_mappings = 1
