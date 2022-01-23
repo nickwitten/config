@@ -49,7 +49,7 @@ nnoremap <c-w>z :tab sp<CR>
 nnoremap <c-w>C :q!<CR>
 nnoremap <c-w>! :q!<CR>
 " Show current file path
-nnoremap <leader>p :echo @%<CR>
+nnoremap <leader>p 1<C-G>
 " Terminal mappings
 nnoremap <leader>t :term<CR>
 nnoremap <leader>T :tab term<CR>
