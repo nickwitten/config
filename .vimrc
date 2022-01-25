@@ -17,11 +17,11 @@ set scrolloff=8
 "set clipboard^=unnamed,unnamedplus
 
 "set clipboard=unnamed
-silent call mkdir ($HOME.'/.vim/backup', 'p')
+silent! call mkdir ($HOME.'/.vim/backup', 'p')
 set backupdir=~/.vim/backup//
-silent call mkdir ($HOME.'/.vim/undo', 'p')
+silent! call mkdir ($HOME.'/.vim/undo', 'p')
 set undodir=~/.vim/undo//
-silent call mkdir ($HOME.'/.vim/swap', 'p')
+silent! call mkdir ($HOME.'/.vim/swap', 'p')
 set directory=~/.vim/swap//
 
 let mapleader = " "
@@ -184,7 +184,7 @@ call plug#end()
 
 " Gruvbox
 set termguicolors
-autocmd vimenter * ++nested colorscheme gruvbox
+autocmd vimenter * colorscheme gruvbox
 set background=dark
 set cursorline
 autocmd! ColorScheme * hi clear CursorLine | hi Search cterm=NONE guifg=Purple guibg=NONE | hi IncSearch cterm=NONE guifg=Purple guibg=NONE | hi Visual cterm=NONE guifg=Purple guibg=NONE
