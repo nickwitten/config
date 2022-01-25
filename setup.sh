@@ -9,7 +9,7 @@ if ! command -v vim &> /dev/null; then
     echo
 fi
 
-if [ ! -f "~/.vimrc" ]; then
+if [ ! -f ~/.vimrc ]; then
     echo 'source ~/config/.vimrc' > ~/.vimrc;
     echo
     echo "VIMRC CREATED"
