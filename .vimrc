@@ -48,8 +48,6 @@ nnoremap <c-w>z :tab sp<CR>
 " Close the current window force
 nnoremap <c-w>C :q!<CR>
 nnoremap <c-w>! :q!<CR>
-" Show current file path
-nnoremap <leader>p 1<C-G>
 " Terminal mappings
 nnoremap <leader>t :term<CR>
 nnoremap <leader>T :tab term<CR>
@@ -143,6 +141,13 @@ function! Run()
 endfunction
 nnoremap <leader>y :call Run()<CR><CR>
 com! -nargs=1 Run let g:RunCMD = <f-args> | echo "LEADER-Y to Run"
+
+function! Serial()
+    term
+    call term_sendkeys("", "python -m serial.tools.miniterm " . g:SerialArgs)
+endfunction
+nnoremap <leader>p :call Serial()<CR><CR>
+com! -nargs=1 Serial let g:SerialArgs = <f-args> | echo "LEADER-P to Open Serial Port"
 
 function! MoveBuff(direction)
     let buffn = bufnr("%")
