@@ -2,6 +2,7 @@ source ~/config/.vimrc
 set shell=powershell
 set shellcmdflag=-command
 set guifont=Consolas:h9:cANSI
+autocmd vimenter * ++nested colorscheme gruvbox
 
 
 " Vim with all enhancements
