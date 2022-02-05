@@ -37,7 +37,7 @@ nnoremap <c-h> :tabm -1<CR>
 nnoremap <c-l> :tabm +1<CR>
 " Create a tab with <c-n>
 nnoremap <c-n> :tabnew<CR>
-nnoremap <c-b> :tabclose<CR>
+nnoremap <c-x> :tabclose<CR>
 " Switch to current files directory
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Paste register 0
