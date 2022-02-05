@@ -14,6 +14,7 @@ set ruler
 set list
 set listchars=tab:►\ ,trail:•
 set scrolloff=8
+set splitright
 "set clipboard^=unnamed,unnamedplus
 
 "set clipboard=unnamed
@@ -49,7 +50,7 @@ nnoremap <c-w>z :tab sp<CR>
 nnoremap <c-w>C :q!<CR>
 nnoremap <c-w>! :q!<CR>
 " Terminal mappings
-nnoremap <leader>t :term<CR>
+nnoremap <leader>t :vertical term<CR>
 nnoremap <leader>T :tab term<CR>
 tnoremap <c-w>[ <c-w>N
 tnoremap <c-w>c <c-w>N
@@ -136,7 +137,7 @@ com! -nargs=1 Redir call Redir(<f-args>)
 
 
 function! Run()
-    term
+    vertical term
     call term_sendkeys("", g:RunCMD)
 endfunction
 nnoremap <leader>y :call Run()<CR><CR>
