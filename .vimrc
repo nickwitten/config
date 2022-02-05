@@ -46,7 +46,7 @@ nnoremap P "0p
 nnoremap X "0x
 xnoremap X "0x
 " Open the current window in a new tab
-nnoremap <c-w>z :tab sp<CR>
+nmap <c-w>z <c-w>v<c-w>L<c-w>T
 " Close the current window force
 nnoremap <c-w>C :q!<CR>
 nnoremap <c-w>! :q!<CR>
