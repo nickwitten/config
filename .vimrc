@@ -145,7 +145,7 @@ nnoremap <leader>y :call Run()<CR><CR>
 com! -nargs=1 Run let g:RunCMD = <f-args> | echo "LEADER-Y to Run"
 
 function! Serial()
-    term
+    vertical term
     call term_sendkeys("", "python -m serial.tools.miniterm " . g:SerialArgs)
 endfunction
 nnoremap <leader>p :call Serial()<CR><CR>
