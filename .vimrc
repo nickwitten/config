@@ -179,10 +179,10 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-sensible'
-Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'simeji/winresizer'
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
@@ -191,7 +191,7 @@ call plug#end()
 
 " Gruvbox
 set termguicolors
-autocmd vimenter * colorscheme gruvbox
+autocmd vimenter * ++nested colorscheme gruvbox
 set background=dark
 set cursorline
 autocmd! ColorScheme * hi clear CursorLine | hi Search cterm=NONE guifg=Purple guibg=NONE | hi IncSearch cterm=NONE guifg=Purple guibg=NONE | hi Visual cterm=NONE guifg=Purple guibg=NONE

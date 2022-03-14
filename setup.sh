@@ -29,4 +29,19 @@ fi
 # Git setup 
 git config --global user.email "nwitt12@gmail.com"
 git config --global user.name "Nick Witten"
+echo
+echo "GIT CONFIGURED"
+echo
 
+# Tmux setup
+if ! command -v tmux &> /dev/null; then
+    sudo apt-get install tmux
+    echo
+    echo "TMUX INSTALLED"
+    echo
+fi
+echo 'source ~/config/.tmux.conf' >> ~/.tmux.conf
+echo 'alias tmux="TERM=screen-256color-bce tmux"' >> ~/.bashrc
+echo
+echo "TMUX CONFIGURED"
+echo
