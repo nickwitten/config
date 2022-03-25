@@ -9,6 +9,14 @@ if ! command -v vim &> /dev/null; then
     echo
 fi
 
+# Ctags setup
+if ! command -v ctags &> /dev/null; then
+    sudo apt-get install ctags
+    echo
+    echo "CTAGS INSTALLED"
+    echo
+fi
+
 if [ ! -f ~/.vimrc ]; then
     echo 'source ~/config/.vimrc' > ~/.vimrc;
     echo

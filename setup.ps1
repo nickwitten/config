@@ -32,6 +32,15 @@ catch [System.Management.Automation.CommandNotFoundException] {
     echo "Installed Vim"
 }
 
+# Ctags
+try {
+    ctags --version | Out-Null
+}
+catch [System.Management.Automation.CommandNotFoundException] {
+    choco install ctags -y
+    echo "Installed Ctags"
+}
+
 # Python 3.10
 try {
     python310 --version | Out-Null
