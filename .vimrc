@@ -15,8 +15,11 @@ set list
 set listchars=tab:►\ ,trail:•
 set scrolloff=8
 set splitright
-"set clipboard^=unnamed,unnamedplus
+" turn hybrid line numbers on
+set number relativenumber
+set nu rnu
 
+"set clipboard^=unnamed,unnamedplus
 "set clipboard=unnamed
 silent! call mkdir ($HOME.'/.vim/backup', 'p')
 set backupdir=~/.vim/backup//
@@ -70,17 +73,21 @@ nnoremap <leader>af zM
 nnoremap <leader>uf zR
 " Paste mode
 nnoremap <leader>v :set paste<CR>"*p:set nopaste<CR>
-
+" Redraw
 nnoremap <leader>! :redraw!<CR>
-
+" Visual mode tab
 vnoremap < <gv
 vnoremap > >gv
-
+" Edit path under cursor
 map gf :edit <cfile><CR>
 
-" turn hybrid line numbers on
-set number relativenumber
-set nu rnu
+
+" Macro over visual selection
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 
 
