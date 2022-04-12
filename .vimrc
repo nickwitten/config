@@ -56,7 +56,7 @@ nnoremap <c-w>! :q!<CR>
 " Terminal mappings
 nnoremap <leader>t :vertical term<CR>
 nnoremap <leader>T :tab term<CR>
-tnoremap <c-w>[ <c-w>N
+tnoremap <c-w>[ <c-w>N:set norelativenumber<CR>:set nonumber<CR>
 tnoremap <c-w>c <c-w>N
 " Search
 nnoremap * *N
