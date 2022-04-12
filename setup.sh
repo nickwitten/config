@@ -1,6 +1,9 @@
 #!/bin/bash
 
 
+# My bashrc addons
+echo "source ~/config/.bashrc" >> ~/.bashrc
+
 # Vim setup
 if ! command -v vim &> /dev/null; then
     sudo apt-get install vim
