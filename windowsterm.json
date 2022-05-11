@@ -1,7 +1,12 @@
 {
+    "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": 
     [
+        {
+            "command": "togglePaneZoom",
+            "keys": "ctrl+shift+z"
+        },
         {
             "command": 
             {
@@ -11,8 +16,12 @@
             "keys": "ctrl+c"
         },
         {
-            "command": "togglePaneZoom",
-            "keys": "ctrl+shift+z"
+            "command": 
+            {
+                "action": "moveFocus",
+                "direction": "previous"
+            },
+            "keys": "ctrl+;"
         },
         {
             "command": "find",
@@ -25,15 +34,6 @@
         {
             "command": 
             {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
-            },
-            "keys": "alt+shift+d"
-        },
-        {
-            "command": 
-            {
                 "action": "moveFocus",
                 "direction": "nextInOrder"
             },
@@ -42,10 +42,11 @@
         {
             "command": 
             {
-                "action": "moveFocus",
-                "direction": "previous"
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
             },
-            "keys": "ctrl+;"
+            "keys": "alt+shift+d"
         }
     ],
     "copyFormatting": "none",
@@ -67,7 +68,6 @@
         [
             {
                 "colorScheme": "Gruvbox Dark",
-                "commandline": "powershell.exe",
                 "cursorShape": "vintage",
                 "font": 
                 {
@@ -80,7 +80,6 @@
             },
             {
                 "colorScheme": "custom",
-                "commandline": "cmd.exe",
                 "font": 
                 {
                     "size": 9,
@@ -105,12 +104,6 @@
                 "startingDirectory": "C:\\Users\\nwitt\\AppData\\Local\\Packages\\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\\LocalState\\rootfs\\home\\nwitt"
             },
             {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
-                "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure"
-            },
-            {
                 "altGrAliasing": true,
                 "antialiasingMode": "grayscale",
                 "closeOnExit": "graceful",
@@ -133,10 +126,49 @@
                 "useAcrylic": false
             },
             {
-                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Gruvbox Dark",
+                "commandline": "powershell.exe -Command \"ssh -i C:\\Users\\nwitt\\.ssh\\id_rsa pi@raspberrypi.local\"",
+                "cursorShape": "vintage",
+                "font": 
+                {
+                    "face": "Cascadia Mono",
+                    "size": 9,
+                    "weight": "light"
+                },
+                "guid": "{1cfdd7b9-bbc1-4f91-bbec-b58d68b5a8a9}",
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
+                "name": "Raspberry Pi",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%",
+                "useAcrylic": false
+            },
+            {
+                "altGrAliasing": true,
+                "antialiasingMode": "grayscale",
+                "closeOnExit": "graceful",
+                "colorScheme": "Gruvbox Dark",
+                "commandline": "powershell.exe -Command \"ssh -i ~\\.ssh\\id_rsa user@192.168.0.1\"",
+                "cursorShape": "vintage",
+                "font": 
+                {
+                    "face": "Cascadia Mono",
+                    "size": 9,
+                    "weight": "light"
+                },
+                "guid": "{7f53a0e2-980e-4979-875e-699194d3a3ae}",
                 "hidden": false,
-                "name": "Git Bash",
-                "source": "Git"
+                "historySize": 9001,
+                "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
+                "name": "SSH",
+                "padding": "8, 8, 8, 8",
+                "snapOnInput": true,
+                "startingDirectory": "%USERPROFILE%",
+                "useAcrylic": false
             }
         ]
     },
@@ -465,5 +497,6 @@
             "yellow": "#C19C00"
         }
     ],
+    "tabSwitcherMode": "inOrder",
     "theme": "dark"
 }
