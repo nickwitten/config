@@ -47,6 +47,7 @@ try {
 }
 catch [System.Management.Automation.CommandNotFoundException] {
     InstallPython "3.10"
+    echo "Installed Python 3.10"
 }
 
 # Python 3.8
@@ -55,6 +56,7 @@ try {
 }
 catch [System.Management.Automation.CommandNotFoundException] {
     InstallPython "3.8"
+    echo "Installed Python 3.8"
 }
 
 
