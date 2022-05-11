@@ -1,9 +1,6 @@
 #!/bin/bash
 
 
-# Make sure text files in config repo are LF not CRLF
-dos2unix ~/config/*
-
 # My bashrc addons
 echo "source ~/config/.bashrc" >> ~/.bashrc
 
