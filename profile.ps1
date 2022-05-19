@@ -26,7 +26,7 @@ function AddPythonToPath {
         }
     }
 }
-if (Test-Path -Path "$env:LOCALAPPDATA\Programs\Python\") {
+if (Test-Path -Path $PythonInstallPath) {
     AddPythonToPath
 }
 
