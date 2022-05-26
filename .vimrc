@@ -148,14 +148,21 @@ function! Run()
     vertical term
     call term_sendkeys("", g:RunCMD)
 endfunction
-nnoremap <leader>y :call Run()<CR><CR>
+nnoremap <leader>y :call Run()<CR>
 com! -nargs=1 Run let g:RunCMD = <f-args> | echo "LEADER-Y to Run"
+
+function! RemoteTerm()
+    vertical term
+    call term_sendkeys("ssh ", g:RemoteCMD)
+endfunction
+nnoremap <leader>rt :call RemoteTerm()<CR>
+com! -nargs=1 Remote let g:RemoteCMD = <f-args> | echo "LEADER-RT to Open Terminal"
 
 function! Serial()
     vertical term
     call term_sendkeys("", "python -m serial.tools.miniterm " . g:SerialArgs)
 endfunction
-nnoremap <leader>p :call Serial()<CR><CR>
+nnoremap <leader>p :call Serial()<CR>
 com! -nargs=1 Serial let g:SerialArgs = <f-args> | echo "LEADER-P to Open Serial Port"
 
 function! MoveBuff(direction)
