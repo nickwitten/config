@@ -197,6 +197,7 @@ call plug#end()
 " PlugInstall to install packages
 
 " Gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 set termguicolors
 autocmd vimenter * ++nested colorscheme gruvbox
 set background=dark
