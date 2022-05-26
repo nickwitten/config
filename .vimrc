@@ -115,13 +115,13 @@ endfunction
 command! LoadSession call LoadSession()
 nnoremap <leader>l :LoadSession <CR>
 
-" When leaving tab focus on second window
-function! FocusWindow2()
-    if (winnr('$') > 1 && winnr() == 1)
-        2 wincmd w
-    endif
-endfunction
-autocmd TabLeave * call FocusWindow2()
+" " When leaving tab focus on second window
+" function! FocusWindow2()
+"     if (winnr('$') > 1 && winnr() == 1)
+"         2 wincmd w
+"     endif
+" endfunction
+" autocmd TabLeave * call FocusWindow2()
 
 
 function! RC()
