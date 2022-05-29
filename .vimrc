@@ -115,13 +115,13 @@ endfunction
 command! LoadSession call LoadSession()
 nnoremap <leader>l :LoadSession <CR>
 
-" When leaving tab focus on second window
-function! FocusWindow2()
-    if (winnr('$') > 1 && winnr() == 1)
-        2 wincmd w
-    endif
-endfunction
-autocmd TabLeave * call FocusWindow2()
+" " When leaving tab focus on second window
+" function! FocusWindow2()
+"     if (winnr('$') > 1 && winnr() == 1)
+"         2 wincmd w
+"     endif
+" endfunction
+" autocmd TabLeave * call FocusWindow2()
 
 
 function! RC()
@@ -150,6 +150,13 @@ function! Run()
 endfunction
 nnoremap <leader>y :call Run()<CR><CR>
 com! -nargs=1 Run let g:RunCMD = <f-args> | echo "LEADER-Y to Run"
+
+function! RemoteTerm()
+    vertical term
+    call term_sendkeys("", "ssh " . g:RemoteCMD)
+endfunction
+nnoremap <leader>rt :call RemoteTerm()<CR><CR>
+com! -nargs=1 Remote let g:RemoteCMD = <f-args> | echo "LEADER-RT to Open Terminal"
 
 function! Serial()
     vertical term
@@ -197,6 +204,7 @@ call plug#end()
 " PlugInstall to install packages
 
 " Gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 set termguicolors
 autocmd vimenter * ++nested colorscheme gruvbox
 set background=dark
