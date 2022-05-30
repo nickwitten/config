@@ -19,3 +19,7 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset - %Cgreen(%ad)%C(y
 ## Python ##
 alias python='python3'
 alias pip='pip3'
+
+## TMUX ##
+echo 'alias tmux="TERM=screen-256color-bce tmux"' >> ~/.bashrc
+

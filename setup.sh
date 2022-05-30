@@ -52,7 +52,6 @@ if ! command -v tmux &> /dev/null; then
     echo
 fi
 echo 'source ~/config/.tmux.conf' >> ~/.tmux.conf
-echo 'alias tmux="TERM=screen-256color-bce tmux"' >> ~/.bashrc
 echo
 echo "TMUX CONFIGURED"
 echo
