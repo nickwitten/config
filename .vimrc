@@ -134,8 +134,8 @@ nnoremap <leader>l :LoadSession <CR>
 
 function! RC()
     tabnew
-    e ~/config/.vimrc
-    vnew $MYVIMRC
+    e ~/config/.bashrc
+    vnew ~/config/.vimrc
 endfunction
 com! RC call RC()
 
