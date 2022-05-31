@@ -12,6 +12,14 @@ if ! command -v vim &> /dev/null; then
     echo
 fi
 
+# Curl setup
+if ! command -v curl &> /dev/null; then
+    sudo apt-get install curl
+    echo
+    echo "CURL INSTALLED"
+    echo
+fi
+
 # Ctags setup
 if ! command -v ctags &> /dev/null; then
     sudo apt-get install ctags
