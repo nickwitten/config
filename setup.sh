@@ -22,7 +22,7 @@ fi
 
 # Ctags setup
 if ! command -v ctags &> /dev/null; then
-    sudo apt-get install ctags
+    sudo apt-get install exuberant-ctags
     echo
     echo "CTAGS INSTALLED"
     echo
