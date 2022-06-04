@@ -28,6 +28,22 @@ if ! command -v ctags &> /dev/null; then
     echo
 fi
 
+# Ripgrep setup
+if ! command -v rg &> /dev/null; then
+    sudo apt-get install ripgrep
+    echo
+    echo "RIPGREP INSTALLED"
+    echo
+fi
+
+# File fuzzy finder setup
+if ! command -v fzf &> /dev/null; then
+    sudo apt-get install fzf
+    echo
+    echo "FZF INSTALLED"
+    echo
+fi
+
 if [ ! -f ~/.vimrc ]; then
     echo 'source ~/config/.vimrc' > ~/.vimrc;
     echo
