@@ -12,11 +12,35 @@ if ! command -v vim &> /dev/null; then
     echo
 fi
 
+# Curl setup
+if ! command -v curl &> /dev/null; then
+    sudo apt-get install curl
+    echo
+    echo "CURL INSTALLED"
+    echo
+fi
+
 # Ctags setup
 if ! command -v ctags &> /dev/null; then
-    sudo apt-get install ctags
+    sudo apt-get install exuberant-ctags
     echo
     echo "CTAGS INSTALLED"
+    echo
+fi
+
+# Ripgrep setup
+if ! command -v rg &> /dev/null; then
+    sudo apt-get install ripgrep
+    echo
+    echo "RIPGREP INSTALLED"
+    echo
+fi
+
+# File fuzzy finder setup
+if ! command -v fzf &> /dev/null; then
+    sudo apt-get install fzf
+    echo
+    echo "FZF INSTALLED"
     echo
 fi
 

@@ -56,6 +56,7 @@ nnoremap X "0x
 xnoremap X "0x
 " Open the current window in a new tab
 nmap <c-w>z <c-w>v<c-w>L<c-w>T
+nnoremap <c-s> :new<CR>
 " Close the current window force
 nnoremap <c-w>C :q!<CR>
 nnoremap <c-w>! :q!<CR>
@@ -137,6 +138,12 @@ nnoremap <leader>l :LoadSession <CR>
 " endfunction
 " autocmd TabLeave * call FocusWindow2()
 
+function! OpenTermInPlace()
+    let curr_buf = bufnr()
+    term
+    execute "bd ".curr_buf
+endfunction
+nnoremap <leader>i :call OpenTermInPlace()<CR>
 
 function! RC()
     tabnew
