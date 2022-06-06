@@ -106,5 +106,5 @@ prompt pure
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-source ${HOME}/config/aliases
-source ${HOME}/config/env_variables
+source ${HOME}/config/aliases.sh
+source ${HOME}/config/env_variables.sh
