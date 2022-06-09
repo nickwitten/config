@@ -31,7 +31,7 @@ if ! command_exists zsh; then
     sudo apt-get install zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     mkdir -p "$HOME/.oh-my-zsh/custom/themes"
-    git clone https://github.com/sindresorhus/pure.git "$HOME/.oh-my-zsh/custom/themes"
+    git clone https://github.com/sindresorhus/pure.git "$HOME/.oh-my-zsh/custom/themes/pure"
     echo -e "\nZSH INSTALLED\n"
     echo 'source ~/config/.zshrc' > ~/.zshrc
 fi
