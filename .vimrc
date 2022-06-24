@@ -214,11 +214,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-sensible'
-" Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'simeji/winresizer'
-" Plug 'davidhalter/jedi-vim'
-Plug 'vim-syntastic/syntastic'
+Plug 'davidhalter/jedi-vim'
+" Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
 call plug#end()
@@ -277,13 +277,13 @@ let g:winresizer_start_key = '<leader>w :WinResizerStartResize<CR>'
 nnoremap <leader>w :WinResizerStartResize<CR>
 
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 " Jedi-Vim
 let g:jedi#goto_stubs_command = "<F1>"
