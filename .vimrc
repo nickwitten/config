@@ -260,7 +260,7 @@ function! NERDTreeToggleFind()
     if g:NERDTree.IsOpen()
         NERDTreeClose
     else
-        if @% == ''
+        if @% == '' || stridx('/bin/bash', @%) || stridx('/bin/zsh', @%)
             NERDTree
         else
             NERDTreeFind
