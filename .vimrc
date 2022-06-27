@@ -48,7 +48,7 @@ nnoremap <c-l> :tabm +1<CR>
 nnoremap <c-n> :tabnew<CR>
 nnoremap <c-x> :tabclose<CR>
 " Switch to current files directory
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Paste register 0
 nnoremap P "0p
 " Cut to register 0
@@ -106,8 +106,33 @@ if executable(s:clip)
 endif
 
 
+" Save current working directory
+" CD to either path under cursor or to saved working directory
+function! SaveCWD() 
+    let g:SavedCWD=trim(execute("pwd"))
+endfunction
+
+function! ChangeCWD()
+    let cursorpath = expand("<cfile>")
+    let fullpath = expand(cursorpath)
+    if isdirectory(fullpath)
+        execute("cd " . fullpath)
+        echo fullpath
+    else
+        if exists("g:SavedCWD")
+            execute("cd " . g:SavedCWD)
+            echo g:SavedCWD
+        endif
+    endif
+endfunction
+" Switch to current path under cursor
+" nnoremap <leader>cd :cd <cfile><CR>:echo expand("<cfile>")<CR>
+nnoremap <leader>cd :call ChangeCWD()<CR>
+
+
 " Session mappings
 function! SaveSession()
+    let g:SavedCWD=trim(execute("pwd"))
     if filereadable(".session.vim")
         call input('Overwrite Session?')
     endif
