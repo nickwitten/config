@@ -276,6 +276,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'simeji/winresizer'
 Plug 'davidhalter/jedi-vim'
+Plug 'gcmt/taboo.vim'
 " Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
