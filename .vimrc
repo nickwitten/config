@@ -191,22 +191,34 @@ com! -nargs=1 Redir call Redir(<f-args>)
 
 
 function! Run()
-    vertical term
-    call term_sendkeys("", g:RunCMD)
+    if exists("g:RunCMD")
+        vertical term
+        call term_sendkeys("", g:RunCMD)
+    else
+        echo "RunCMD Not Defined"
+    endif
 endfunction
 nnoremap <leader>y :call Run()<CR><CR>
 com! -nargs=1 Run let g:RunCMD = <f-args> | echo "LEADER-Y to Run"
 
 function! RemoteTerm()
-    vertical term
-    call term_sendkeys("", "ssh " . g:RemoteCMD)
+    if exists("g:RemoteCMD")
+        vertical term
+        call term_sendkeys("", "ssh " . g:RemoteCMD)
+    else
+        echo "RemoteCMD Not Defined"
+    endif
 endfunction
 nnoremap <leader>rt :call RemoteTerm()<CR><CR>
 com! -nargs=1 Remote let g:RemoteCMD = <f-args> | echo "LEADER-RT to Open Terminal"
 
 function! Serial()
-    vertical term
-    call term_sendkeys("", "python -m serial.tools.miniterm " . g:SerialArgs)
+    if exists("g:SerialArgs")
+        vertical term
+        call term_sendkeys("", "python -m serial.tools.miniterm " . g:SerialArgs)
+    else
+        echo "SerialArgs Not Defined"
+    endif
 endfunction
 nnoremap <leader>p :call Serial()<CR><CR>
 com! -nargs=1 Serial let g:SerialArgs = <f-args> | echo "LEADER-P to Open Serial Port"
