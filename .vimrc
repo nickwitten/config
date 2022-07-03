@@ -129,7 +129,7 @@ command! Bdi :call DeleteInactiveBufs()
 
 " Save current working directory
 " CD to either path under cursor or to saved working directory
-function! SaveCWD() 
+function! SaveCWD()
     let g:SavedCWD=trim(execute("pwd"))
 endfunction
 
