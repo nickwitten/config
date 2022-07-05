@@ -185,7 +185,7 @@ nnoremap <leader>l :LoadSession <CR>
 " autocmd TabLeave * call FocusWindow2()
 
 function! OpenTermInPlace()
-    let curr_buf = bufnr()
+    let curr_buf = bufnr("")
     term
     execute "bd ".curr_buf
 endfunction
