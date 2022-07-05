@@ -3,7 +3,6 @@ alias ls='ls --color=auto'
 
 ## Use a long listing format ##
 alias ll='ls -la --color=auto'
-
 ## Show hidden files ##
 alias l.='ls -d .* --color=auto'
 
@@ -22,4 +21,9 @@ alias powerdraw='echo - | awk "{printf \"%.1f\", $(( $(cat /sys/class/power_supp
 ## Allow alias expansion for watch ##
 alias watch='watch '
 
-
+alias t='tmux'
+alias ta='tmux attach'
+alias tat='tmux attach -t'
+alias tn='tmux new-session -s'
+alias tl='tmux list-sessions'
+alias tk='tmux kill-session -t'
