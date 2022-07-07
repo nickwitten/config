@@ -130,7 +130,7 @@ command! Bdi :call DeleteInactiveBufs()
 " Save current working directory
 " CD to either path under cursor or to saved working directory
 function! SaveCWD()
-    let g:SavedCWD=trim(execute("pwd"))
+    let g:SavedCWD=getcwd()
 endfunction
 
 function! ChangeCWD()
@@ -153,7 +153,7 @@ nnoremap <leader>cd :call ChangeCWD()<CR>
 
 " Session mappings
 function! SaveSession()
-    let g:SavedCWD=trim(execute("pwd"))
+    let g:SavedCWD=getcwd()
     if filereadable(".session.vim")
         call input('Overwrite Session?')
     endif
