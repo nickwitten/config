@@ -9,7 +9,11 @@ alias l.='ls -d .* --color=auto'
 ## Git ##
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset - %Cgreen(%ad)%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --abbrev-commit --date=local"
 alias gs="git status"
+alias gf="git fetch"
 alias gd="git diff"
+alias gc="git checkout"
+alias gds="git diff --staged"
+alias gr="git rebase -i --autosquash"
 
 ## Python ##
 alias python='python3'
