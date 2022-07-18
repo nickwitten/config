@@ -277,13 +277,15 @@ Plug 'tpope/vim-fugitive'
 Plug 'simeji/winresizer'
 Plug 'davidhalter/jedi-vim'
 Plug 'gcmt/taboo.vim'
-" Plug 'vim-syntastic/syntastic'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" PLUGIN: Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
 call plug#end()
 " PlugInstall to install packages
 
-" Gruvbox
+" PLUGIN: Gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 set termguicolors
 " Set gruvbox colors in the terminal too
@@ -312,7 +314,7 @@ set cursorline
 autocmd! ColorScheme * hi clear CursorLine | hi Search cterm=NONE guifg=Purple guibg=NONE | hi IncSearch cterm=NONE guifg=Purple guibg=NONE | hi Visual cterm=NONE guifg=Purple guibg=NONE
 " :hi Search term=standout ctermfg=245 ctermbg=237 guifg=Purple guibg=#3c3836
 
-" NERDTree
+" PLUGIN: NERDTree
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 let NERDTreeShowBookmarks = 1
 
@@ -332,11 +334,11 @@ nnoremap <leader>n :NERDTreeToggleFind<CR>
 nnoremap <leader>N :NERDTree<CR>
 
 
-"Winresizer
+"PLUGIN: Winresizer
 let g:winresizer_start_key = '<leader>w :WinResizerStartResize<CR>'
 nnoremap <leader>w :WinResizerStartResize<CR>
 
-" Syntastic
+" PLUGIN: Syntastic
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
@@ -345,7 +347,7 @@ nnoremap <leader>w :WinResizerStartResize<CR>
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
 
-" Jedi-Vim
+" PLUGIN: Jedi-Vim
 let g:jedi#goto_stubs_command = "<F1>"
 let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 2  " in cmdline
@@ -358,3 +360,20 @@ else
     let g:jedi#environment_path = ""
 endif
 let g:jedi#usages_command = "<leader>u"
+
+
+" " PLUGIN: FZF
+" Don't include file name in :Rg
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <C-f> :Files<CR>
+nnoremap <leader>rg :Rg<CR>
+" nnoremap <silent> <leader>f :Rg<CR>
+nnoremap <silent> <leader>/ :BLines<CR>
+nnoremap <silent> <leader>' :Marks<CR>
+nnoremap <silent> <leader>g :Commits<CR>
+nnoremap <silent> <leader>H :Helptags<CR>
+nnoremap <silent> <leader>hh :History<CR>
+nnoremap <silent> <leader>h: :History:<CR>
+nnoremap <silent> <leader>h/ :History/<CR>
