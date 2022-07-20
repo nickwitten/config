@@ -11,7 +11,8 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset - %Cgreen(%ad)%C(y
 alias gs="git status"
 alias gf="git fetch"
 alias gd="git diff"
-alias gc="git checkout"
+alias gc="git commit"
+alias gco="git checkout"
 alias gds="git diff --staged"
 alias gr="git rebase -i --autosquash"
 
