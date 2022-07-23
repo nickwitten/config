@@ -1,0 +1,9 @@
+git
+tmux
+screen
+vim
+curl
+zsh
+exuberant-ctags
+ripgrep
+fzf

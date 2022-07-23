@@ -186,8 +186,11 @@ nnoremap <leader>l :LoadSession <CR>
 
 function! OpenTermInPlace()
     let curr_buf = bufnr("")
+    if curr_buf->term_getstatus() == "running,normal"
+        call bufnr("")->term_getjob()->job_stop("kill")
+    endif
     term
-    execute "bd ".curr_buf
+    execute "bd! ".curr_buf
 endfunction
 nnoremap <leader>i :call OpenTermInPlace()<CR>
 
