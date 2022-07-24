@@ -196,8 +196,8 @@ nnoremap <leader>i :call OpenTermInPlace()<CR>
 
 function! RC()
     tabnew
-    e ~/config/.bashrc
-    vnew ~/config/.vimrc
+    e ~/config/.vimrc
+    vnew ~/config/.zshrc
 endfunction
 com! RC call RC()
 
