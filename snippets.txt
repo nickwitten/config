@@ -1,0 +1,2 @@
+##### Compiling Vim #####
+./configure --with-features=huge --enable-python3interp  # Fixed make by adding -lrt at the end of failing large gcc command
