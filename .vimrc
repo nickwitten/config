@@ -282,6 +282,7 @@ Plug 'davidhalter/jedi-vim'
 Plug 'gcmt/taboo.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'tpope/vim-surround',
 " PLUGIN: Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
