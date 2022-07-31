@@ -87,6 +87,16 @@ vnoremap < <gv
 vnoremap > >gv
 " Edit path under cursor
 map gf :edit <cfile><CR>
+" Emacs bindings in command mode
+:cnoremap <C-A>  <Home>
+:cnoremap <C-B>  <Left>
+:cnoremap <C-D>  <Del>
+:cnoremap <C-E>  <End>
+:cnoremap <C-F>  <Right>
+:cnoremap <C-N>  <Down>
+:cnoremap <C-P>  <Up>
+:cnoremap <Esc>b <S-Left>
+:cnoremap <Esc>f <S-Right>
 
 
 " Macro over visual selection
@@ -132,18 +142,33 @@ command! Bdi :call DeleteInactiveBufs()
 function! SaveCWD()
     let g:SavedCWD=getcwd()
 endfunction
+autocmd VimEnter * call SaveCWD()
+
+function! ChangeSavedCWD()
+    if exists("g:SavedCWD")
+        execute("cd " . g:SavedCWD)
+        echo g:SavedCWD
+    else
+        echo "No saved directory"
+    endif
+endfunction
+nnoremap <leader>csd :call ChangeSavedCWD()<CR>
 
 function! ChangeCWD()
-    let cursorpath = expand("<cfile>")
-    let fullpath = expand(cursorpath)
-    if isdirectory(fullpath)
-        execute("cd " . fullpath)
-        echo fullpath
-    else
-        if exists("g:SavedCWD")
-            execute("cd " . g:SavedCWD)
-            echo g:SavedCWD
+    " let cursorpath = expand("<cfile>")
+    " let fullpath = expand(cursorpath)
+    " if isdirectory(fullpath)
+    "     execute("cd " . fullpath)
+    "     echo fullpath
+    " else
+    if has("unix")
+        silent! let path = resolve("/proc/" . bufnr("")->term_getjob()->job_info()["process"] . "/cwd")
+        if isdirectory(path)
+            execute("cd " . path)
+            echo path
         endif
+    else
+        echo "Only implemented for unix""
     endif
 endfunction
 " Switch to current path under cursor
@@ -176,13 +201,16 @@ endfunction
 command! LoadSession call LoadSession()
 nnoremap <leader>l :LoadSession <CR>
 
-" " When leaving tab focus on second window
-" function! FocusWindow2()
-"     if (winnr('$') > 1 && winnr() == 1)
-"         2 wincmd w
-"     endif
-" endfunction
-" autocmd TabLeave * call FocusWindow2()
+function! InPlace()
+    " Either open a new terminal here or if
+    " in nerdtree, sync with global cwd
+    if exists('t:NERDTreeBufName') && buffer_name("") == t:NERDTreeBufName
+        NERDTreeCWD
+        echo getcwd()
+    else
+        call OpenTermInPlace()
+    endif
+endfunction
 
 function! OpenTermInPlace()
     let curr_buf = bufnr("")
@@ -192,7 +220,7 @@ function! OpenTermInPlace()
     term
     execute "bd! ".curr_buf
 endfunction
-nnoremap <leader>i :call OpenTermInPlace()<CR>
+nnoremap <leader>i :call InPlace()<CR>
 
 function! RC()
     tabnew
