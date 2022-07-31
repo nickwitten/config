@@ -24,13 +24,18 @@ fi;
 ##### ZSH #####
 ZSHRC_CMD='source ~/config/.zshrc'
 if command_exists zsh; then
+    if ! [ -d $HOME/.oh-my-zsh ]; then
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        if [ -f $HOME/.zshrc.pre-oh-my-zsh ]; then
+            mv $HOME/.zshrc.pre-oh-my-zsh $HOME/.zshrc
+        else
+            rm $HOME/.zshrc
+        fi
+        mkdir -p "$HOME/.oh-my-zsh/custom/themes"
+        git clone https://github.com/sindresorhus/pure.git "$HOME/.oh-my-zsh/custom/themes/pure"
+    fi
     if ! contains_match ~/.zshrc "${ZSHRC_CMD}"; then
         echo ${ZSHRC_CMD} >> ~/.zshrc
-    fi
-    if ! [ -d $HOME/.oh-my-zsh ]; then
-        mkdir -p "$HOME/.oh-my-zsh/custom/themes"
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        git clone https://github.com/sindresorhus/pure.git "$HOME/.oh-my-zsh/custom/themes/pure"
     fi
     echo "ZSH CONFIGURED"
 fi
