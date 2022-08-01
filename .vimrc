@@ -168,13 +168,23 @@ function! ChangeCWD()
             echo path
         endif
     else
-        echo "Only implemented for unix""
+        echo "Only implemented for unix"
     endif
 endfunction
 " Switch to current path under cursor
 " nnoremap <leader>cd :cd <cfile><CR>:echo expand("<cfile>")<CR>
 nnoremap <leader>cd :call ChangeCWD()<CR>
 
+function! FindInTermCWD()
+    if has("unix")
+        silent! let path = resolve("/proc/" . bufnr("")->term_getjob()->job_info()["process"] . "/cwd")
+        echo path
+        execute("FZF " . path)
+    else
+        echo "Only implemented for unix"
+    endif
+endfunction
+tnoremap <c-w>f <c-w>:call FindInTermCWD()<CR>
 
 " Session mappings
 function! SaveSession()
