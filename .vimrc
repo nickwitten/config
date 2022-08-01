@@ -162,10 +162,18 @@ function! ChangeCWD()
     "     echo fullpath
     " else
     if has("unix")
-        silent! let path = resolve("/proc/" . bufnr("")->term_getjob()->job_info()["process"] . "/cwd")
-        if isdirectory(path)
-            execute("cd " . path)
-            echo path
+        silent! let term_path = resolve("/proc/" . bufnr("")->term_getjob()->job_info()["process"] . "/cwd")
+        if isdirectory(term_path)
+            execute("cd " . term_path)
+            echo term_path
+        else
+            let file_path = expand("%:p:h")
+            if isdirectory(file_path)
+                execute("cd " . file_path)
+                echo file_path
+            else
+                echo "No directory associated with buffer"
+            endif
         endif
     else
         echo "Only implemented for unix"
