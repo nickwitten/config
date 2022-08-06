@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -z $1 ]; then
+    echo "Usage:\n\ne [filename]"
+    exit 1
+fi
+
+VIMPATH=`which vim`
+$VIMPATH --not-a-term --clean --noplugin -n -R -c 'set runtimepath^=/home/nwitt/.vim/plugged/vim-floaterm' -c 'call floaterm#edita#vim#client#open()' $1

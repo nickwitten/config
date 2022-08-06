@@ -186,6 +186,9 @@ nnoremap <leader>cd :call ChangeCWD()<CR>
 function! FindInTermCWD()
     if has("unix")
         silent! let path = resolve("/proc/" . bufnr("")->term_getjob()->job_info()["process"] . "/cwd")
+        if exists('*floaterm#window#hide')
+            call floaterm#window#hide(bufnr(""))
+        endif
         echo path
         execute("FZF " . path)
     else
@@ -329,6 +332,7 @@ Plug 'gcmt/taboo.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-surround',
+Plug 'voldikss/vim-floaterm',
 " PLUGIN: Plug 'vim-syntastic/syntastic'
 
 " Initialize plugin system
@@ -427,3 +431,14 @@ nnoremap <silent> <leader>H :Helptags<CR>
 nnoremap <silent> <leader>hh :History<CR>
 nnoremap <silent> <leader>h: :History:<CR>
 nnoremap <silent> <leader>h/ :History/<CR>
+
+
+" PLUGIN: FLoatTerm
+nnoremap <c-q> :FloatermToggle<CR>
+tnoremap <c-q> <c-w>:FloatermToggle<CR>
+nnoremap <c-w><c-n> :FloatermNew<CR>
+tnoremap <c-w><c-n> <c-w>:FloatermNew<CR>
+tnoremap <c-w><c-h> <c-w>:FloatermPrev<CR>
+tnoremap <c-w><c-l> <c-w>:FloatermNext<CR>
+tnoremap <c-w><c-k> <c-w>:FloatermKill<CR>
+
