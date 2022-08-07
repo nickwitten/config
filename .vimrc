@@ -22,15 +22,9 @@ set scrolloff=8
 set splitright
 set number relativenumber
 set hls
-
 "set clipboard^=unnamed,unnamedplus
 "set clipboard=unnamed
-silent! call mkdir ($HOME.'/.vim/backup', 'p')
-set backupdir=~/.vim/backup//
-silent! call mkdir ($HOME.'/.vim/undo', 'p')
-set undodir=~/.vim/undo//
-silent! call mkdir ($HOME.'/.vim/swap', 'p')
-set directory=~/.vim/swap//
+
 
 let mapleader = " "
 map <leader>rc :source $MYVIMRC<CR>
@@ -85,6 +79,15 @@ vnoremap > >gv
 :cnoremap <Esc>f <S-Right>
 
 
+" Swap, undo, and backup clutter
+silent! call mkdir ($HOME.'/.vim/backup', 'p')
+set backupdir=~/.vim/backup//
+silent! call mkdir ($HOME.'/.vim/undo', 'p')
+set undodir=~/.vim/undo//
+silent! call mkdir ($HOME.'/.vim/swap', 'p')
+set directory=~/.vim/swap//
+
+
 function! EditCursorPath(newtab)
     let cursorpath = expand("<cfile>:p")
     if isdirectory(cursorpath)
@@ -109,7 +112,6 @@ nnoremap <c-w>gf :call EditCursorPath(1)<CR>
 ./.vimrc
 
 
-" Macro over visual selection
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
