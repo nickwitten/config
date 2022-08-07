@@ -73,8 +73,6 @@ nnoremap <leader>v :set paste<CR>"*p:set nopaste<CR>
 nnoremap <leader>! :redraw!<CR>
 vnoremap < <gv
 vnoremap > >gv
-" Edit path under cursor
-map gf :edit <cfile><CR>
 " Emacs bindings in command mode
 :cnoremap <C-A>  <Home>
 :cnoremap <C-B>  <Left>
@@ -87,6 +85,28 @@ map gf :edit <cfile><CR>
 :cnoremap <Esc>f <S-Right>
 
 
+function! EditCursorPath(newtab)
+    let cursorpath = expand("<cfile>:p")
+    if isdirectory(cursorpath)
+        execute("cd " . cursorpath)
+        echo cursorpath
+        return
+    endif
+    if filereadable(cursorpath)
+        if exists('*floaterm#window#hide')
+            call floaterm#window#hide(bufnr(""))
+        endif
+        if a:newtab
+            tabnew
+        endif
+        execute("edit " . cursorpath)
+        return
+    endif
+    echo "Could not find dir/file"
+endfunction
+nnoremap gf :call EditCursorPath(0)<CR>
+nnoremap <c-w>gf :call EditCursorPath(1)<CR>
+./.vimrc
 
 
 " Macro over visual selection
