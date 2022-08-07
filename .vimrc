@@ -451,4 +451,4 @@ tnoremap <c-w><c-l> <c-w>:FloatermNext<CR>
 tnoremap <c-w><c-k> <c-w>:FloatermKill<CR>
 let g:floaterm_height = 0.8
 let g:floaterm_width = 0.8
-
+let g:floaterm_autoclose = 2  " Always close after job exits
