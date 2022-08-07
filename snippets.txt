@@ -8,3 +8,6 @@ sync; echo 3 > /proc/sys/vm/drop_caches
 sudo apt install -o Dpkg::Options::="--force-overwrite" bat ripgrep
 ##### Latest bat with gruvbox available #####
 https://github.com/sharkdp/bat/releases
+
+##### Check linux distribution #####
+lsb_release -a
