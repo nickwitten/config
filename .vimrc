@@ -20,9 +20,7 @@ set list
 set listchars=tab:►\ ,trail:•
 set scrolloff=8
 set splitright
-" turn hybrid line numbers on
 set number relativenumber
-set nu rnu
 set hls
 
 "set clipboard^=unnamed,unnamedplus
@@ -39,27 +37,18 @@ map <leader>rc :source $MYVIMRC<CR>
 " Scroll with and without cursor
 nnoremap <c-j> j<c-e>
 nnoremap <c-k> k<c-y>
-" Set tab switch and move to H and L
+" Tabs
 nnoremap H gT
 nnoremap L gt
 nnoremap <c-h> :tabm -1<CR>
 nnoremap <c-l> :tabm +1<CR>
-" Create a tab with <c-n>
 nnoremap <c-n> :tabnew<CR>
 nnoremap <c-x> :tabclose<CR>
-" Switch to current files directory
-" nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Paste register 0
 nnoremap P "0p
 " Cut to register 0
 nnoremap X "0x
 xnoremap X "0x
-" Open the current window in a new tab
-nmap <c-w>z <c-w>v<c-w>L<c-w>T
-nnoremap <c-s> :new<CR>
-" Close the current window force
-nnoremap <c-w>C :q!<CR>
-nnoremap <c-w>! :q!<CR>
 " Terminal mappings
 nnoremap <leader>t :vertical term<CR>
 nnoremap <leader>T :tab term<CR>
@@ -69,7 +58,7 @@ tnoremap <c-w>c <c-w>N
 nnoremap * *N
 vnoremap * "ay :exe 'Search '.@a<CR> NN
 vnoremap c* "ay :exe 'Search '.@a<CR> NN cgn
-nnoremap # :noh<CR>
+nnoremap # :noh<CR>:echo<CR>
 nnoremap c* *N cgn
 com! -nargs=1 Search :let @/='\V'.escape(<q-args>, '\/')| normal! n
 " Folds
@@ -82,7 +71,6 @@ nnoremap <leader>uf zR
 nnoremap <leader>v :set paste<CR>"*p:set nopaste<CR>
 " Redraw
 nnoremap <leader>! :redraw!<CR>
-" Visual mode tab
 vnoremap < <gv
 vnoremap > >gv
 " Edit path under cursor
@@ -99,12 +87,15 @@ map gf :edit <cfile><CR>
 :cnoremap <Esc>f <S-Right>
 
 
+
+
 " Macro over visual selection
 function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
 
 " WSL yank support
 let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
@@ -115,6 +106,7 @@ if executable(s:clip)
     augroup END
 endif
 
+
 " Wipeout inactive buffers
 function! DeleteInactiveBufs()
     "From tabpagebuflist() help, get a list of all buffers in all tabs
@@ -122,7 +114,6 @@ function! DeleteInactiveBufs()
     for i in range(tabpagenr('$'))
         call extend(tablist, tabpagebuflist(i + 1))
     endfor
-
     "Below originally inspired by Hara Krishna Dara and Keith Roberts
     "http://tech.groups.yahoo.com/group/vim/message/56425
     let nWipeouts = 0
@@ -137,12 +128,14 @@ function! DeleteInactiveBufs()
 endfunction
 command! Bdi :call DeleteInactiveBufs()
 
+
 " Save current working directory
 " CD to either path under cursor or to saved working directory
 function! SaveCWD()
     let g:SavedCWD=getcwd()
 endfunction
 autocmd VimEnter * call SaveCWD()
+
 
 function! ChangeSavedCWD()
     if exists("g:SavedCWD")
@@ -153,6 +146,7 @@ function! ChangeSavedCWD()
     endif
 endfunction
 nnoremap <leader>csd :call ChangeSavedCWD()<CR>
+
 
 function! ChangeCWD()
     " let cursorpath = expand("<cfile>")
@@ -183,6 +177,7 @@ endfunction
 " nnoremap <leader>cd :cd <cfile><CR>:echo expand("<cfile>")<CR>
 nnoremap <leader>cd :call ChangeCWD()<CR>
 
+
 function! FindInTermCWD()
     if has("unix")
         silent! let path = resolve("/proc/" . bufnr("")->term_getjob()->job_info()["process"] . "/cwd")
@@ -196,6 +191,7 @@ function! FindInTermCWD()
     endif
 endfunction
 tnoremap <c-w>f <c-w>:call FindInTermCWD()<CR>
+
 
 " Session mappings
 function! SaveSession()
@@ -212,6 +208,7 @@ command! SaveSession call SaveSession()
 nnoremap <leader>s :SaveSession <CR>
 set sessionoptions+=globals
 
+
 function! LoadSession()
     if filereadable(".session.vim")
         source ./.session.vim
@@ -221,6 +218,7 @@ function! LoadSession()
 endfunction
 command! LoadSession call LoadSession()
 nnoremap <leader>l :LoadSession <CR>
+
 
 function! InPlace()
     " Either open a new terminal here or if
@@ -233,6 +231,7 @@ function! InPlace()
     endif
 endfunction
 
+
 function! OpenTermInPlace()
     let curr_buf = bufnr("")
     if curr_buf->term_getstatus() == "running,normal"
@@ -243,6 +242,7 @@ function! OpenTermInPlace()
 endfunction
 nnoremap <leader>i :call InPlace()<CR>
 
+
 function! RC()
     tabnew
     e ~/config/.vimrc
@@ -250,17 +250,11 @@ function! RC()
 endfunction
 com! RC call RC()
 
+
 function! Swaps()
     execute "vnew " . &directory
 endfunction
 com! Swaps call Swaps()
-
-
-function! Redir(cmd)
-    tabnew
-    redir @">| silent execute(a:cmd) | put "
-endfunction
-com! -nargs=1 Redir call Redir(<f-args>)
 
 
 function! Run()
@@ -274,6 +268,7 @@ endfunction
 nnoremap <leader>y :call Run()<CR><CR>
 com! -nargs=1 Run let g:RunCMD = <f-args> | echo "LEADER-Y to Run"
 
+
 function! RemoteTerm()
     if exists("g:RemoteCMD")
         vertical term
@@ -284,6 +279,7 @@ function! RemoteTerm()
 endfunction
 nnoremap <leader>rt :call RemoteTerm()<CR><CR>
 com! -nargs=1 Remote let g:RemoteCMD = <f-args> | echo "LEADER-RT to Open Terminal"
+
 
 function! Serial()
     if exists("g:SerialArgs")
@@ -296,8 +292,9 @@ endfunction
 nnoremap <leader>p :call Serial()<CR><CR>
 com! -nargs=1 Serial let g:SerialArgs = <f-args> | echo "LEADER-P to Open Serial Port"
 
+
 function! MoveBuff(direction)
-    let buffn = bufnr("%")
+    let bufnr = bufnr("")
     close!
     if a:direction == "r"
         silent! tabn +1
@@ -309,18 +306,28 @@ function! MoveBuff(direction)
             return
         endif
     endif
-    execute "sbuff " . buffn
+    execute "sbuff " . bufnr
 endfunction
 com! -nargs=1 MoveBuff call MoveBuff(<f-args>)
 nnoremap <leader><c-l> :MoveBuff r<CR>
 nnoremap <leader><c-h> :MoveBuff l<CR>
 
 
-" Specify a directory for plugins
-" - For Neovim: stdpath('data') . '/plugged'
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.vim/plugged')
+function! MaximizeCurrBuf()
+    let bufnr = bufnr("")
+    if exists('*floaterm#window#hide')
+        call floaterm#window#hide(bufnr(""))
+    endif
+    silent! tabnew
+    silent! execute "buf " . bufnr
+endfunction
+nnoremap <c-w>z :call MaximizeCurrBuf()<CR>
+tnoremap <c-w>z <c-w>:call MaximizeCurrBuf()<CR>
 
+
+
+
+call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-sensible'
@@ -334,44 +341,24 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-surround',
 Plug 'voldikss/vim-floaterm',
 " PLUGIN: Plug 'vim-syntastic/syntastic'
-
-" Initialize plugin system
 call plug#end()
-" PlugInstall to install packages
+
 
 " PLUGIN: Gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 set termguicolors
-" Set gruvbox colors in the terminal too
-"black
-"dark red
-"dark green
-"brown
-"dark blue
-"dark magenta
-"dark cyan
-"light grey
-"dark grey
-"red
-"green
-"yellow
-"blue
-"magenta
-"cyan
-"white
+" Set gruvbox colors in the terminal too: black dark red dark green brown dark blue dark magenta dark cyan light grey dark grey red green yellow blue magenta cyan white
 let g:terminal_ansi_colors = ['#282828', '#FB4934', '#8EC07C', '#FABD2F', '#83A598', '#9c1dcf', '#8EC07C', '#928374', '#282828', '#FB4934', '#B8BB26', '#FABD2F', '#83A598', '#D3869B', '#8EC07C', '#A89984']
-" let g:terminal_ansi_colors = ['#282828', '#FB4934', '#8EC07C', '#FABD2F', '#458588', '#B16286', '#8EC07C', '#928374', '#282828', '#FB4934', '#B8BB26', '#FABD2F', '#83A598', '#9c1dcf', '#8EC07C', '#A89984']
 " autocmd vimenter * ++nested colorscheme gruvbox
 autocmd vimenter * nested colorscheme gruvbox
 set background=dark
 set cursorline
 autocmd! ColorScheme * hi clear CursorLine | hi Search cterm=NONE guifg=Purple guibg=NONE | hi IncSearch cterm=NONE guifg=Purple guibg=NONE | hi Visual cterm=NONE guifg=Purple guibg=NONE
-" :hi Search term=standout ctermfg=245 ctermbg=237 guifg=Purple guibg=#3c3836
+
 
 " PLUGIN: NERDTree
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 let NERDTreeShowBookmarks = 1
-
 function! NERDTreeToggleFind()
     if g:NERDTree.IsOpen()
         NERDTreeClose
@@ -392,6 +379,7 @@ nnoremap <leader>N :NERDTree<CR>
 let g:winresizer_start_key = '<leader>w :WinResizerStartResize<CR>'
 nnoremap <leader>w :WinResizerStartResize<CR>
 
+
 " PLUGIN: Syntastic
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
@@ -400,6 +388,7 @@ nnoremap <leader>w :WinResizerStartResize<CR>
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
+
 
 " PLUGIN: Jedi-Vim
 let g:jedi#goto_stubs_command = "<F1>"
@@ -417,13 +406,10 @@ let g:jedi#usages_command = "<leader>u"
 
 
 " " PLUGIN: FZF
-" Don't include file name in :Rg
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <leader>rg :Rg<CR>
-" nnoremap <silent> <leader>f :Rg<CR>
 nnoremap <silent> <leader>/ :BLines<CR>
 nnoremap <silent> <leader>' :Marks<CR>
 nnoremap <silent> <leader>g :Commits<CR>
@@ -441,4 +427,6 @@ tnoremap <c-w><c-n> <c-w>:FloatermNew<CR>
 tnoremap <c-w><c-h> <c-w>:FloatermPrev<CR>
 tnoremap <c-w><c-l> <c-w>:FloatermNext<CR>
 tnoremap <c-w><c-k> <c-w>:FloatermKill<CR>
+let g:floaterm_height = 0.8
+let g:floaterm_width = 0.8
 
