@@ -3,3 +3,8 @@
 
 ##### Remove all linux cache #####
 sync; echo 3 > /proc/sys/vm/drop_caches
+
+##### Install bat with ripgrep conflict #####
+sudo apt install -o Dpkg::Options::="--force-overwrite" bat ripgrep
+##### Latest bat with gruvbox available #####
+https://github.com/sharkdp/bat/releases
