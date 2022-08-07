@@ -6,4 +6,6 @@ if [ -z $1 ]; then
 fi
 
 VIMPATH=`which vim`
-$VIMPATH --not-a-term --clean --noplugin -n -R -c 'set runtimepath^=/home/nwitt/.vim/plugged/vim-floaterm' -c 'call floaterm#edita#vim#client#open()' $1
+for f in $1 $2 $3 $4 $5; do
+    $VIMPATH --not-a-term --clean --noplugin -n -R -c 'set runtimepath^=/home/nwitt/.vim/plugged/vim-floaterm' -c 'call floaterm#edita#vim#client#open()' $f
+done;
