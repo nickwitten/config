@@ -427,7 +427,7 @@ let g:jedi#usages_command = "<leader>u"
 
 
 " " PLUGIN: FZF
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+command! -bang -nargs=* Rg call fzf#vim#grep("rg -u -L --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <leader>rg :Rg<CR>
@@ -440,7 +440,7 @@ nnoremap <silent> <leader>h: :History:<CR>
 nnoremap <silent> <leader>h/ :History/<CR>
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
-let $FZF_DEFAULT_COMMAND = 'rg -u --files --no-ignore --hidden --ignore-case --glob "!{.git,node_modules,vendor}/*"'
+let $FZF_DEFAULT_COMMAND = 'rg -L -u --files --no-ignore --hidden --ignore-case --glob "!{.git,node_modules,vendor}/*"'
 command! -bang -nargs=? -complete=dir Files
      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
