@@ -360,7 +360,7 @@ Plug 'gcmt/taboo.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'tpope/vim-surround',
-Plug 'voldikss/vim-floaterm',
+Plug 'nickwitten/vim-floaterm',
 " PLUGIN: Plug 'vim-syntastic/syntastic'
 call plug#end()
 
