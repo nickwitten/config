@@ -79,7 +79,15 @@ vnoremap > >gv
 
 
 " Include library tags
-set tags+=/usr/include/**/tags
+" set tags+=/usr/include/**/tags
+" set tags+=/usr/lib/**/tags
+" set tags+=/usr/local/include/**/tags
+" set tags+=/usr/local/lib/**/tags
+" if has("unix")
+"     set tags+=$HOME/.local/lib/**/tags
+" else
+"     set tags+=$LOCALAPPDATA/Programs/Python/**/tags  " Not tested
+" endif
 
 
 " Swap, undo, and backup clutter
