@@ -78,6 +78,10 @@ vnoremap > >gv
 :cnoremap <Esc>f <S-Right>
 
 
+" Include library tags
+set tags+=/usr/include/**/tags
+
+
 " Swap, undo, and backup clutter
 silent! call mkdir ($HOME.'/.vim/backup', 'p')
 set backupdir=~/.vim/backup//
