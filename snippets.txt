@@ -11,3 +11,6 @@ https://github.com/sharkdp/bat/releases
 
 ##### Check linux distribution #####
 lsb_release -a
+
+##### Turn of git pager #####
+git config --global core.pager "cat"

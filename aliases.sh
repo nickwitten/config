@@ -8,6 +8,7 @@ alias l.='ls -d .* --color=auto'
 
 ## Git ##
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset - %Cgreen(%ad)%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --abbrev-commit --date=local"
+alias gitgrep="git log --pickaxe-regex -p --color-words -S"
 alias gs="git status"
 alias gf="git fetch"
 alias gd="git diff"

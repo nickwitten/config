@@ -44,7 +44,6 @@ nnoremap P "0p
 nnoremap X "0x
 xnoremap X "0x
 " Terminal mappings
-nnoremap <leader>t :vertical term<CR>
 nnoremap <leader>T :tab term<CR>
 tnoremap <c-w>[ <c-w>N:setlocal norelativenumber nonumber<CR>:echo<CR>
 tnoremap <c-w>c <c-w>N
@@ -199,19 +198,17 @@ endfunction
 nnoremap <leader>cd :call ChangeCWD()<CR>
 
 
-function! FindInTermCWD()
+function! FindInTermCWD(cmd)
     if has("unix")
         silent! let path = resolve("/proc/" . bufnr("")->term_getjob()->job_info()["process"] . "/cwd")
         if exists('*floaterm#window#hide')
             call floaterm#window#hide(bufnr(""))
         endif
-        echo path
-        execute("FZF " . path)
+        execute(a:cmd . " " . path)
     else
         echo "Only implemented for unix"
     endif
 endfunction
-tnoremap <c-w>f <c-w>:call FindInTermCWD()<CR>
 
 
 " Session mappings
@@ -427,10 +424,11 @@ let g:jedi#usages_command = "<leader>u"
 
 
 " " PLUGIN: FZF
-command! -bang -nargs=* Rg call fzf#vim#grep("rg -u -L --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Files<CR>
-nnoremap <leader>rg :Rg<CR>
+tnoremap <silent> <c-w>f <c-w>:call FindInTermCWD("Files")<CR>
+nnoremap <silent> <leader>rg :Rg<CR>
+nnoremap <silent> <leader>t :Tags<CR>
 nnoremap <silent> <leader>/ :BLines<CR>
 nnoremap <silent> <leader>' :Marks<CR>
 nnoremap <silent> <leader>g :Commits<CR>
@@ -438,11 +436,11 @@ nnoremap <silent> <leader>H :Helptags<CR>
 nnoremap <silent> <leader>hh :History<CR>
 nnoremap <silent> <leader>h: :History:<CR>
 nnoremap <silent> <leader>h/ :History/<CR>
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
-let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
-let $FZF_DEFAULT_COMMAND = 'rg -L -u --files --no-ignore --hidden --ignore-case --glob "!{.git,node_modules,vendor}/*"'
-command! -bang -nargs=? -complete=dir Files
-     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:55%' --layout reverse --margin=1,4"
+let $FZF_DEFAULT_COMMAND = 'rg -L --files --no-ignore --hidden --smart-case --glob "!{.git,node_modules,vendor}/*"'
+command! -bang -nargs=* Rg
+    \ call fzf#vim#grep("rg -L --no-ignore --hidden --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
 
 
 " PLUGIN: FLoatTerm
