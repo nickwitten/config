@@ -22,6 +22,7 @@ set scrolloff=8
 set splitright
 set number relativenumber
 set hls
+set modelines=0
 "set clipboard^=unnamed,unnamedplus
 "set clipboard=unnamed
 
