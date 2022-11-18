@@ -57,6 +57,7 @@ nnoremap c* *N cgn
 com! -nargs=1 Search :let @/='\V'.escape(<q-args>, '\/')| normal! n
 " Folds
 set foldmethod=indent
+set foldlevelstart=99  " don't open a buffer with folds closed
 nnoremap <leader>f za
 nnoremap <leader>F zO
 nnoremap <leader>af zM
