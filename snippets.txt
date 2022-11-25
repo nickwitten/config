@@ -14,3 +14,19 @@ lsb_release -a
 
 ##### Turn of git pager #####
 git config --global core.pager "cat"
+
+##### Network tui #####
+nmtui
+##### List available wifi #####
+nmcli device wifi list
+##### Connect to a wifi #####
+nmcli device wifi connect <ssid_or_bss>
+##### List previous connections #####
+nmcli connection show
+##### Delete a previous connection #####
+nmcli connection delete <name_or_uuid>
+##### Turn off wifi #####
+nmcli radio wifi off
+##### Edit a connection #####
+nmcli connection edit <name>
+
