@@ -30,3 +30,7 @@ nmcli radio wifi off
 ##### Edit a connection #####
 nmcli connection edit <name>
 
+##### Arduino CLI list connected boards #####
+arduino-cli board list
+##### Compile and upload #####
+arduino-cli compile --fqbn arduino:megaavr:nona4809 --build-property compiler.cpp.extra_flags=-DHOST_BUILD=1 --output-dir BUILD -u -p/dev/ttyACM0 -v <sketch>
