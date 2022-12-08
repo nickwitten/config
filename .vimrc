@@ -2,7 +2,9 @@ set mouse=a
 if has("mouse_sgr")
     set ttymouse=sgr
 else
-    set ttymouse=xterm2
+    if !has('nvim')
+        set ttymouse=xterm2
+    endif
 end
 set hidden
 filetype plugin indent on
@@ -46,8 +48,13 @@ nnoremap X "0x
 xnoremap X "0x
 " Terminal mappings
 nnoremap <leader>T :tab term<CR>
-tnoremap <c-w>[ <c-w>N:setlocal norelativenumber nonumber<CR>:echo<CR>
-tnoremap <c-w>c <c-w>N
+if has('nvim')
+    tnoremap <c-w>[ <c-\><c-n>:setlocal norelativenumber nonumber<CR>:echo<CR>
+    tnoremap <c-w>c <c-\><c-n>
+else
+    tnoremap <c-w>[ <c-w>N:setlocal norelativenumber nonumber<CR>:echo<CR>
+    tnoremap <c-w>c <c-w>N
+endif
 " Search
 nnoremap * *N
 vnoremap * "ay :exe 'Search '.@a<CR> NN
@@ -459,12 +466,21 @@ command! -bang -nargs=* Rg
 
 " PLUGIN: FLoatTerm
 nnoremap <c-q> :FloatermToggle<CR>
-tnoremap <c-q> <c-w>:FloatermToggle<CR>
-nnoremap <c-w><c-n> :FloatermNew<CR>
-tnoremap <c-w><c-n> <c-w>:FloatermNew<CR>
-tnoremap <c-w><c-h> <c-w>:FloatermPrev<CR>
-tnoremap <c-w><c-l> <c-w>:FloatermNext<CR>
-tnoremap <c-w><c-k> <c-w>:FloatermKill<CR>
+if has('nvim')
+    tnoremap <c-q> <c-\><c-n>:FloatermToggle<CR>
+    nnoremap <c-w><c-n> :FloatermNew<CR>
+    tnoremap <c-w><c-n> <c-\><c-n>:FloatermNew<CR>
+    tnoremap <c-w><c-h> <c-\><c-n>:FloatermPrev<CR>
+    tnoremap <c-w><c-l> <c-\><c-n>:FloatermNext<CR>
+    tnoremap <c-w><c-k> <c-\><c-n>:FloatermKill<CR>
+else
+    tnoremap <c-q> <c-w>:FloatermToggle<CR>
+    nnoremap <c-w><c-n> :FloatermNew<CR>
+    tnoremap <c-w><c-n> <c-w>:FloatermNew<CR>
+    tnoremap <c-w><c-h> <c-w>:FloatermPrev<CR>
+    tnoremap <c-w><c-l> <c-w>:FloatermNext<CR>
+    tnoremap <c-w><c-k> <c-w>:FloatermKill<CR>
+endif
 let g:floaterm_height = 0.8
 let g:floaterm_width = 0.8
 let g:floaterm_autoclose = 2  " Always close after job exits
