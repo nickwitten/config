@@ -2,7 +2,8 @@
 
 set -eu
 
-# This script flashes and debugs an stm32 application
+# This script flashes and debugs an stm32 application.  Make sure to start an STM32 project in
+# CubeIDE and build the project once in the IDE before using this application.
 # Install the STM32 Programmer here https://www.st.com/en/development-tools/stm32cubeprog.html
 # Install the CubeIDE here https://www.st.com/en/development-tools/stm32cubeide.html
 
