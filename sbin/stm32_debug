@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# This script flashes and debugs an stm32 application
+# Install the STM32 Programmer here https://www.st.com/en/development-tools/stm32cubeprog.html
+# Install the CubeIDE here https://www.st.com/en/development-tools/stm32cubeide.html
+
+
+# GDB Server is installed with the CubeIDE, find the path to ST-LINK_gdbserver.
+GDB_SERVER_PATH='/opt/st/stm32cubeide_1.11.0/plugins/com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.linux64_2.0.400.202209281104/tools/bin/ST-LINK_gdbserver'
+# GDB is installed with the CubeIDE, find the path to arm-none-eabi-gdb.
+GDB_PATH='/opt/st/stm32cubeide_1.11.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.linux64_1.0.100.202210260954/tools/bin/arm-none-eabi-gdb'
+# STM32 Programmer install path
+STM32_PROGRAMMER_PATH="${HOME}/STM32Cube/STM32CubeProgrammer"
+# STM32 Programmer CLI path
+STM32_PROGRAMMER_CLI_PATH="${STM32_PROGRAMMER_PATH}/bin/STM32_Programmer_CLI"
+
+
+# Build the STM32 Application
+make -C ./Debug all
+
+# Flash the application onto the STM32
+eval "${STM32_PROGRAMMER_CLI_PATH} -c port=SWD -w ./Debug/*.elf"
+
+# Create a new tmux session for the gdb server
+unset TMUX
+tmux new-session -s gdb-server -c $STM32_PROGRAMMER_PATH -d
+tmux send-keys -t gdb-server "${GDB_SERVER_PATH} --swd --initialize-reset" Enter
+
+# Attach a gdb session to the server
+${GDB_PATH} --se=Debug/hello_world_STM32F446RE.elf --eval-command 'target remote localhost:61234'
