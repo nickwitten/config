@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 # This script flashes and debugs an stm32 application
 # Install the STM32 Programmer here https://www.st.com/en/development-tools/stm32cubeprog.html
 # Install the CubeIDE here https://www.st.com/en/development-tools/stm32cubeide.html
@@ -22,9 +24,10 @@ make -C ./Debug all
 eval "${STM32_PROGRAMMER_CLI_PATH} -c port=SWD -w ./Debug/*.elf"
 
 # Create a new tmux session for the gdb server
+tmux kill-session -t gdb-server || true
 unset TMUX
 tmux new-session -s gdb-server -c $STM32_PROGRAMMER_PATH -d
 tmux send-keys -t gdb-server "${GDB_SERVER_PATH} --swd --initialize-reset" Enter
 
 # Attach a gdb session to the server
-${GDB_PATH} --se=Debug/hello_world_STM32F446RE.elf --eval-command 'target remote localhost:61234'
+${GDB_PATH} --se=$(echo ./Debug/*.elf) -ex 'target remote localhost:61234' -ex 'tui enable'
