@@ -1,0 +1,2 @@
+echo 'auto' > '/sys/bus/pci/devices/0000:01:00.0/power/control';
+python3 -m undervolt --gpu -75 --core -125 --cache -100 --uncore -100 --analogio -100;

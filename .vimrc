@@ -25,7 +25,7 @@ set splitright
 set number relativenumber
 set hls
 set modelines=0
-"set clipboard^=unnamed,unnamedplus
+set clipboard^=unnamed,unnamedplus
 "set clipboard=unnamed
 
 
@@ -457,6 +457,8 @@ nnoremap <silent> <leader>H :Helptags<CR>
 nnoremap <silent> <leader>hh :History<CR>
 nnoremap <silent> <leader>h: :History:<CR>
 nnoremap <silent> <leader>h/ :History/<CR>
+" Access registers in FZF pop-up
+autocmd! FileType fzf tnoremap <expr> <C-r> getreg(nr2char(getchar()))
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:55%' --layout reverse --margin=1,4"
 let $FZF_DEFAULT_COMMAND = 'rg -L --files --no-ignore --hidden --smart-case --glob "!{.git,node_modules,vendor}/*"'
