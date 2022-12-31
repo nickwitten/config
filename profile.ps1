@@ -64,3 +64,6 @@ function GitLog {
     git log --graph --pretty=format:'%Cred%h%Creset - %Cgreen(%ad)%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --abbrev-commit --date=local
 }
 
+$env:BAT_THEME='gruvbox-dark'
+$env:FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+$env:FZF_DEFAULT_OPTS='-m --height 50% --border'

@@ -28,6 +28,11 @@ set modelines=0
 set clipboard^=unnamed,unnamedplus
 "set clipboard=unnamed
 
+if has("win32")
+    set shell=powershell
+    set shellcmdflag=-command
+end
+
 
 let mapleader = " "
 map <leader>rc :source $MYVIMRC<CR>
