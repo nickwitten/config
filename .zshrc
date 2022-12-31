@@ -75,6 +75,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Add to the path
 export PATH=$PATH:$HOME/config/sbin
+export PATH=$PATH:/home/nwitt/config/bin/linux/x86
 
 # Pure Prompt Setup
 fpath+=($ZSH/custom/themes/pure)

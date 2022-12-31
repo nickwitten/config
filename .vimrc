@@ -393,13 +393,22 @@ call plug#end()
 " PLUGIN: Gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 set termguicolors
-" Set gruvbox colors in the terminal too: black dark red dark green brown dark blue dark magenta dark cyan light grey dark grey red green yellow blue magenta cyan white
-let g:terminal_ansi_colors = ['#282828', '#FB4934', '#8EC07C', '#FABD2F', '#83A598', '#9c1dcf', '#8EC07C', '#928374', '#282828', '#FB4934', '#B8BB26', '#FABD2F', '#83A598', '#D3869B', '#8EC07C', '#A89984']
-" autocmd vimenter * ++nested colorscheme gruvbox
+" Set gruvbox colors in the terminal, gruvbox does this but we want all
+" bright versions
+if has('nvim')
+    autocmd ColorScheme * nested let g:terminal_color_0 = '#282828' | let g:terminal_color_1 = '#FB4934' | let g:terminal_color_2 = '#8EC07C' | let g:terminal_color_3 = '#FABD2F' | let g:terminal_color_4 = '#83A598' | let g:terminal_color_5 = '#9c1dcf' | let g:terminal_color_6 = '#8EC07C' | let g:terminal_color_7 = '#928374' | let g:terminal_color_8 = '#282828' | let g:terminal_color_9 = '#FB4934' | let g:terminal_color_10 = '#B8BB26' | let g:terminal_color_11 = '#FABD2F' | let g:terminal_color_12 = '#83A598' | let g:terminal_color_13 = '#D3869B' | let g:terminal_color_14 = '#8EC07C' | let g:terminal_color_15 = '#A89984'
+else
+    let g:terminal_ansi_colors = ['#282828', '#FB4934', '#8EC07C', '#FABD2F', '#83A598', '#9c1dcf', '#8EC07C', '#928374', '#282828', '#FB4934', '#B8BB26', '#FABD2F', '#83A598', '#D3869B', '#8EC07C', '#A89984']
+end
+" Highlight colors
+if has('nvim')
+    autocmd ColorScheme * nested hi Search guifg=bg guibg=#9c1dcf | hi IncSearch guifg=bg guibg=#9c1dcf | hi Visual guifg=bg guibg=#9c1dcf
+else
+    autocmd! ColorScheme * hi clear CursorLine | hi Search cterm=NONE guifg=Purple guibg=NONE | hi IncSearch cterm=NONE guifg=Purple guibg=NONE | hi Visual cterm=NONE guifg=Purple guibg=NONE
+end
 autocmd vimenter * nested colorscheme gruvbox
 set background=dark
-set cursorline
-autocmd! ColorScheme * hi clear CursorLine | hi Search cterm=NONE guifg=Purple guibg=NONE | hi IncSearch cterm=NONE guifg=Purple guibg=NONE | hi Visual cterm=NONE guifg=Purple guibg=NONE
+set nocursorline
 
 
 " PLUGIN: NERDTree
@@ -493,3 +502,5 @@ endif
 let g:floaterm_height = 0.8
 let g:floaterm_width = 0.8
 let g:floaterm_autoclose = 2  " Always close after job exits
+autocmd ColorScheme * nested hi FloatermBorder guibg=NONE
+
