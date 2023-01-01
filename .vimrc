@@ -506,5 +506,9 @@ endif
 let g:floaterm_height = 0.8
 let g:floaterm_width = 0.8
 let g:floaterm_autoclose = 2  " Always close after job exits
-autocmd ColorScheme * nested hi FloatermBorder guibg=NONE
+if has("nvim")
+    autocmd ColorScheme * nested hi FloatermBorder guibg=bg
+else
+    autocmd ColorScheme * nested hi FloatermBorder guibg=NONE
+endif
 
