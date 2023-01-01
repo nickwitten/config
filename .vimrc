@@ -31,7 +31,9 @@ set clipboard^=unnamed,unnamedplus
 if has("win32")
     set shell=powershell
     set shellcmdflag=-command
-    set termwintype=conpty  " fixes issues with terminal colors and ctrl-c
+    if !has("nvim")
+        set termwintype=conpty  " fixes issues with terminal colors and ctrl-c
+    endif
     set guifont=Consolas:h9:cANSI
 end
 

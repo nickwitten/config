@@ -7,6 +7,18 @@ function Prompt {
   return $out
 }
 
+$PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'  # set default output to utf8
+
+$env:BAT_THEME = 'gruvbox-dark'
+$env:FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+$env:FZF_DEFAULT_OPTS = '-m --height 50% --border'
+
+# Add to path
+$env:Path = "$env:PATH;$HOME\config\sbin"
+$env:Path = "$env:PATH;$HOME\config\bin\windows\x86"
+$env:Path = "$env:PATH;$HOME\config\portable\nvim-win64\bin"
+
+
 function ReloadPath {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
     return
@@ -63,7 +75,3 @@ searchVENV
 function GitLog {
     git log --graph --pretty=format:'%Cred%h%Creset - %Cgreen(%ad)%C(yellow)%d%Creset %s %C(bold blue)<%an>%Creset' --abbrev-commit --date=local
 }
-
-$env:BAT_THEME='gruvbox-dark'
-$env:FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-$env:FZF_DEFAULT_OPTS='-m --height 50% --border'

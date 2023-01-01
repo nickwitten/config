@@ -2,73 +2,26 @@
 # Set-ExecutionPolicy Unrestricted
 . ~/config/profile.ps1
 
-######### Packages ################
-
-# Choco
-try {
-    choco --version | Out-Null
-}
-catch [System.Management.Automation.CommandNotFoundException] {
-    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-    echo "Installed Chocolatey"
-    choco feature enable -n useRememberedArgumentsForUpgrades
-}
-
-# Git
-try {
-    git --version | Out-Null
-}
-catch [System.Management.Automation.CommandNotFoundException] {
-    choco install git -y
-    echo "Installed Git"
-}
-
-# Vim
-try {
-    vim --version | Out-Null
-}
-catch [System.Management.Automation.CommandNotFoundException] {
-    choco install vim -y
-    echo "Installed Vim"
-}
-
-# Ctags
-try {
-    ctags --version | Out-Null
-}
-catch [System.Management.Automation.CommandNotFoundException] {
-    choco install ctags -y
-    echo "Installed Ctags"
-}
-
-# Python 3.10
-try {
-    python310 --version | Out-Null
-}
-catch [System.Management.Automation.CommandNotFoundException] {
-    InstallPython "3.10"
-    echo "Installed Python 3.10"
-}
-
-# Python 3.8
-try {
-    python38 --version | Out-Null
-}
-catch [System.Management.Automation.CommandNotFoundException] {
-    InstallPython "3.8"
-    echo "Installed Python 3.8"
-}
-
 
 ########### Vim #####################
-$vimplugpath = "$HOME/vimfiles/autoload/plug.vim"
+Copy-Item $HOME\config\_vimrc $HOME\_vimrc -Force | Out-Null
+$vimplugpath = "$HOME/.vim/autoload/plug.vim"
 if (-Not (Test-Path -Path $vimplugpath)) {
     iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
         ni $vimplugpath -Force | Out-Null
     echo "Installed Vim-Plug"
 }
-Copy-Item ~/config/_vimrc ~/_vimrc -Force | Out-Null
 
+########## NVim ##################
+$nvimconfig = "$env:LOCALAPPDATA/nvim"
+$nvimrc = "$env:LOCALAPPDATA/nvim/init.vim"
+if (-Not (Test-Path -Path $nvimconfig)) {
+    mkdir -p $nvimconfig | Out-Null
+    echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" >> $nvimrc
+    echo "let &packpath=&runtimepath" >> $nvimrc
+    echo "source ~/config/.vimrc" >> $nvimrc
+    echo "NVIM CONFIGURED"
+}
 
 ######## PowerShell ################
 New-Item -ItemType File -Path $profile -Force | Out-Null
