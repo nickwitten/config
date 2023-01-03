@@ -1,7 +1,7 @@
 git
 tmux
 screen
-vim
+vim-gtk3
 curl
 zsh
 exuberant-ctags
