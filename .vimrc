@@ -32,7 +32,8 @@ if has("win32")
     set shell=powershell
     set shellcmdflag=-command
     set shellquote=\"
-    set shellxquote=
+    " set shellxquote=  " This led to an issue with fzf and vimplug not being
+    " able to use powershell
     if !has("nvim")
         set termwintype=conpty  " fixes issues with terminal colors and ctrl-c
     endif
