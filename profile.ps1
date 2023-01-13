@@ -1,4 +1,5 @@
 Set-PSReadLineOption -EditMode Emacs
+Set-PSReadLineOption -Colors @{ Parameter = 'White' }  # Fixes hard to read paramater color
 
 function Prompt {
   $loc = $($executionContext.SessionState.Path.CurrentLocation);
