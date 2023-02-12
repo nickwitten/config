@@ -40,6 +40,8 @@ if has("win32")
     set guifont=Consolas:h9:cANSI
 end
 
+autocmd FileType * setlocal formatoptions-=o
+
 
 let mapleader = " "
 map <leader>rc :source $MYVIMRC<CR>
