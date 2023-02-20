@@ -20,6 +20,8 @@ git config --global core.pager "cat"
 
 ##### Network tui #####
 nmtui
+##### Connect to eduroam #####
+nmcli connection add type wifi con-name "eduroam" ifname wlp59s0 ssid "eduroam" wifi-sec.key-mgmt wpa-eap 802-1x.identity "nwitten3@gatech.edu" 802-1x.password "xxx" 802-1x.system-ca-certs yes 802-1x.eap "peap" 802-1x.phase2-auth mschapv2
 ##### List available wifi #####
 nmcli device wifi list
 ##### Connect to a wifi #####
