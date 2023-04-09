@@ -35,3 +35,6 @@ alias tat='tmux attach -t'
 alias tn='tmux new-session -s'
 alias tl='tmux list-sessions'
 alias tk='tmux kill-session -t'
+
+## Diff use full width of terminal ##
+alias diff='diff -W $(tput cols)'
