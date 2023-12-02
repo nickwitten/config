@@ -18,6 +18,9 @@ lsb_release -a
 ##### Turn off git pager #####
 git config --global core.pager "cat"
 
+##### Connect Airpods to Ubuntu #####
+sudo btmgmt ssp off
+
 ##### Network tui #####
 nmtui
 ##### Connect to eduroam #####
