@@ -1,3 +1,11 @@
+if has('win32')
+    set shell=powershell
+    set shellcmdflag=-command
+    set shellquote=\"
+    set termwintype=conpty
+endif
+
+
 set mouse=a
 set hidden
 filetype plugin indent on
