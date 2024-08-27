@@ -156,7 +156,7 @@ nnoremap <c-w>z :call MaximizeCurrBuf()<CR>
 tnoremap <c-w>z <c-w>:call MaximizeCurrBuf()<CR>
 
 
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-sensible'
@@ -165,6 +165,7 @@ Plug 'simeji/winresizer'
 Plug 'gcmt/taboo.vim'
 Plug 'tpope/vim-surround'
 call plug#end()
+
 
 
 " PLUGIN: Gruvbox
