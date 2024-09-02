@@ -1,6 +1,5 @@
 git
 tmux
-screen
 vim-gtk3
 curl
 zsh
