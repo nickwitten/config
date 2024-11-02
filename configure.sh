@@ -21,7 +21,7 @@ fi
 if ! [ -d $HOME/.zsh-themes ]; then
     mkdir -p "$HOME/.zsh-themes"
     if ! [ -d $HOME/.zsh-themes/pure ]; then
-        git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh-themes"
+        git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh-themes/pure"
     fi
 fi
 
