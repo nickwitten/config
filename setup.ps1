@@ -5,7 +5,7 @@
 
 ########### Vim #####################
 Copy-Item $HOME\config\_vimrc $HOME\_vimrc -Force | Out-Null
-$vimplugpath = "$HOME/.vim/autoload/plug.vim"
+$vimplugpath = "$HOME/vimfile/autoload/plug.vim"
 if (-Not (Test-Path -Path $vimplugpath)) {
     iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
         ni $vimplugpath -Force | Out-Null
@@ -29,5 +29,5 @@ echo ". $HOME\config\profile.ps1" > $profile
 
 
 ###### Windows Terminal ############
-Copy-Item ~\config\windowsterm.json ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
+# Copy-Item ~\config\windowsterm.json ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
 
